@@ -4,9 +4,24 @@ import User from '../models/user.js'
 const router = express.Router();
 
 // User registration route
+// router.post('/register', (req, res) => {
+//     const { username, password } = req.body;
+//     User.register(new User({ username }), password,  (err, user) => {
+//         if (err) {
+//             return res.status(500).json({ error: err.message });
+//         }
+//         passport.authenticate('local')(req, res, () => {
+//             res.status(201).json({ message: 'Registration successful' });
+//         });
+//     });
+// });
+
 router.post('/register', (req, res) => {
-    const { username, password } = req.body;
-    User.register(new User({ username }), password, (err, user) => {
+    const { username, email, password, admin } = req.body;
+
+    const role = admin ? 'admin' : 'user';
+
+    User.register(new User({ username, email, role }), password, (err, user) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -15,6 +30,7 @@ router.post('/register', (req, res) => {
         });
     });
 });
+
 
 // User login route
 router.post('/login', passport.authenticate('local'), (req, res) => {
