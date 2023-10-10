@@ -1,16 +1,14 @@
-
-
-import mongodb from 'mongodb'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 
+mongoose.connect(process.env.MONGODB_CONNECTION_URL)
 
-const connectionString = process.env.MONGODB_CONNECTION_URL
+const db = mongoose.connection
 
-const client = new mongodb.MongoClient(connectionString)
-
-
-client.connect()
-const db = client.db('postCollection')
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', () => {
+    console.log('Connected to Database')
+})
 
 export default db;
