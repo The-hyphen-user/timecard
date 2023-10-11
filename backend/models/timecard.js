@@ -15,7 +15,8 @@ const timecardSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     startTime: {
         type: Date,
@@ -31,7 +32,7 @@ const timecardSchema = new mongoose.Schema({
     },
     isProcessed: {
         type: Boolean,
-        required: true
+        default: false
     },
     edits: [{
         type: mongoose.Schema.Types.ObjectId,
