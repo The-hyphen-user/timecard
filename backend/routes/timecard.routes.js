@@ -8,7 +8,7 @@ router.post('/', isAuthenticated, async (req, res) => {
         const timecard = new Timecard(req.body)
         timecard.user = req.user._id
         await timecard.save()
-        res.json(timecard)
+        res.json({message: 'timecard submited', timecard: timecard})
     } catch (error) { console.log(error) }
 })
 
