@@ -26,11 +26,13 @@ router.post('/request-email', async (req, res) => {//need to send recovery email
         if (!email){
             return res.status(404).json({ message: 'Email not found' })
         } else{
-            User = await User.findOne({ email: email })
-            const recovery = new Recovery(req.body)
-            recovery.user = User._id
+            const recoveryUser = await User.findOne({ email: email })
+            const token = Token()
+            const recovery = new Recovery({user: recoveryUser.id, token})
             await recovery.save()
-            res.json({message: 'a recovery email has been sent to you'})
+            console.log('recovery:', recovery)
+            //success 
+            res.status(201).json({message: 'a recovery email has been sent to you'})
         }
     }
     catch (error) {
@@ -45,7 +47,6 @@ router.post('/request-username', async(req, res) => {
             return res.status(404).json({message: 'Username not found'})
         } else {
             const recoveryUser = await User.findOne({username: username})
-            // const id = user.id
             const token = Token()
             const recovery = new Recovery({user: recoveryUser.id, token})
             await recovery.save()
