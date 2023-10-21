@@ -1,0 +1,14 @@
+{
+  "name": "timecard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/The-hyphen-user/timecard.git",
+  "author": "<pet22v20@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev":"concurrently \" cd client && yarn start\" \" cd backend && yarn dev\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
