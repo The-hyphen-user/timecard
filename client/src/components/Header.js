@@ -8,7 +8,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.user.username);
   return (
     <div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} direction="column">
         <Grid item>
           <Link to="/home">
             <Button variant="contained" color="primary">
@@ -16,23 +16,47 @@ const Header = () => {
             </Button>
           </Link>
         </Grid>
-        <Grid item>
+
+        {user ?
+          <Grid item>
+            <Link to="/dashboard">
+              <Button variant="contained" color="primary">
+                dashboard
+              </Button>
+            </Link>
+          </Grid>
+          :
+          <Grid item>
             <Link to="/login">
               <Button variant="contained" color="primary">
                 Login
               </Button>
             </Link>
+          </Grid>}
 
-
-        </Grid>
         <Grid item>
-            <Link to="/signup">
-              <Button variant="contained" color="primary">
-                Signup
-              </Button>
-            </Link>
+          <Link to="/signup">
+            <Button variant="contained" color="primary">
+              Signup
+            </Button>
+          </Link>
         </Grid>
 
+        <Grid item>
+          <Link to="/jobsite">
+            <Button variant="contained" color="primary">
+              jobsites
+            </Button>
+          </Link>
+        </Grid>
+
+        <Grid item>
+          <Link to="/signup">
+            <Button variant="contained" color="primary">
+              Signup
+            </Button>
+          </Link>
+        </Grid>
 
         <Grid item>
           <Link to="/about">
