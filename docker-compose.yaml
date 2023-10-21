@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  nginx:
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      # - $NGINX_EXTERNAL_PORT:$NGINX_INTERNAL_PORT #production port
+      - "3050:3050"
+  
+  api:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./.env
+    ports: 
+      #- $API_LOCAL_PORT:$API_DOCKER_URL #production port
+      - "5000:5000"
+      #port that react needs to send requests: port that express needs to listen on
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - ./logs:/logs
+    environment:
+      - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
+      - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
+      - MAILGUN_API_KEY=$MAILGUN_API_KEY
+
+
+  client:
+    build:
+      context: ./client
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+volumes:
+  db:

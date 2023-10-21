@@ -1,6 +1,6 @@
-FROM node:14
+FROM node:16-alpine
 
-WORKDIR /server
+WORKDIR /backend
 COPY package.json .
 RUN yarn
 COPY . .
