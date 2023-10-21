@@ -8,13 +8,15 @@ import db from './db/db.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
+
 import postRoutes from './routes/posts.js';
 import User from './models/user.js';
 import routes from './routes/index.js';
 
-
+const PORT = process.env.API_LOCAL_PORT || 5000;
 const app = express();
-app.use(cors());
+const corsOptions = {origin: [ 'http://localhost:3000' ] , credentials: true}
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(session({
@@ -30,6 +32,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+  
+
 app.use('/api', routes);
 
 
@@ -43,16 +47,7 @@ app.use('/', (req, res) => {
 })
 
 
-// import timecardRoutes from './routes/timecard.routes.js'
-// import authRoutes from './util/auth.js'
 
-// app.use('/auth', authRoutes)
-// app.use('/timecard', timecardRoutes)
-
-
-
-
-
-app.listen('5000', () => {
+app.listen(PORT, () => {
     console.log('app running on port 5000')
 })
