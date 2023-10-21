@@ -14,6 +14,7 @@ import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import JobsiteList from './components/JobsiteList';
 import { Container, Typography } from '@mui/material';
+import JobsitePage from './components/JobsitePage';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -47,6 +48,7 @@ function App() {
             <Route path='logout' element={<Logout />} />
             <Route path='jobsite' element={<JobsiteList />} />
             <Route path='jobsites' element={<JobsiteList />} />
+            <Route path='jobsite/:jobsiteId' element={<JobsitePage />} />
 
 
 

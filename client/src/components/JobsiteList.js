@@ -32,7 +32,7 @@ const JobsiteList = () => {
                 <Grid container spacing={3} style={{ padding: '20px' }}>
                     {exampleJobsites.map((jobsite) => (
                         <Grid item xs={12} md={6} lg={4} key={jobsite.id}>
-                            <Link to={`/jobsites/${jobsite.id}`} style={{ textDecoration: 'none' }}>
+                            <Link to={`/jobsite/${jobsite.id}`} style={{ textDecoration: 'none' }}>
                                 <Paper style={{ padding: '20px', cursor: 'pointer' }}>
                                     <Jobsite {...jobsite} />
                                 </Paper>
