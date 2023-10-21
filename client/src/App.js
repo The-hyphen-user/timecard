@@ -1,25 +1,61 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import axios from 'axios';
+import Header from './components/Header';
+import Home from './components/Home'
+import Login from './components/Login';
+import About from './components/About';
+import Signup from './components/Signup';
+import User from './components/User'
+import Logout from './components/Logout';
+import Search from './components/Search';
+import Profile from './components/Profile';
+import Dashboard from './components/Dashboard';
+import { Container, Typography } from '@mui/material';
 
 function App() {
+  axios.defaults.withCredentials = true;
+  axios.defaults.baseURL = "http://localhost:5000";
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+      <Container 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column', // Set flex direction to column
+        height: '100vh', // Set the container height to fill the viewport
+      }}
+      // sx={{bgcolor: 'primary.main', p:1}}
+      >
+        <Typography variant="h3" component="div" gutterBottom>
+        test
+        </Typography>
 
-export default App;
+  <br/>
+        <Header />
+        <div style={{ flex: 1, overflow: 'auto' }}>
+        <Routes>
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='user' element={<User />}>
+            <Route path='search' element={<Search/>} />
+            <Route path='profile' element={<Profile/>} />
+          </Route>
+          <Route path='about' element={<About />} />
+          <Route path='home' element={<Home />} />
+          <Route path='logout' element={<Logout />} />
+  
+  
+  
+          <Route path='/' element={<Home />} />
+        </Routes>
+        </div>
+        
+        </Container>
+      </div>
+    );
+  }
+  
+  export default App;
+
