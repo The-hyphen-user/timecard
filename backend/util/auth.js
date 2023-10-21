@@ -4,19 +4,6 @@ import User from '../models/user.js'
 import Timecard from '../models/timecard.js'
 const router = express.Router();
 
-// User registration route
-// router.post('/register', (req, res) => {
-//     const { username, password } = req.body;
-//     User.register(new User({ username }), password,  (err, user) => {
-//         if (err) {
-//             return res.status(500).json({ error: err.message });
-//         }
-//         passport.authenticate('local')(req, res, () => {
-//             res.status(201).json({ message: 'Registration successful' });
-//         });
-//     });
-// });
-
 router.post('/register', (req, res) => {
     const { username, email, password, admin } = req.body;
 
@@ -27,7 +14,7 @@ router.post('/register', (req, res) => {
             return res.status(500).json({ error: err.message });
         }
         passport.authenticate('local')(req, res, () => {
-            res.status(201).json({ message: 'Registration successful' });
+            res.status(201).json({ message: 'Registration successful', user: user });
         });
     });
 });

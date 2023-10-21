@@ -15,6 +15,7 @@ import Dashboard from './components/Dashboard';
 import JobsiteList from './components/JobsiteList';
 import { Container, Typography } from '@mui/material';
 import JobsitePage from './components/JobsitePage';
+import Welcome from './components/Welcome';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -49,6 +50,7 @@ function App() {
             <Route path='jobsite' element={<JobsiteList />} />
             <Route path='jobsites' element={<JobsiteList />} />
             <Route path='jobsite/:jobsiteId' element={<JobsitePage />} />
+            <Route path='welcome' element={<Welcome/>} />
 
 
 
