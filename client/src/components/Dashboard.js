@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useSelector } from "react-redux";
 
+import Timecard from './Timecard';
+
 const Dashboard = () => {
 
     let navigate = useNavigate();
@@ -34,6 +36,16 @@ const Dashboard = () => {
     const handleTimecardSearch = () => {
         navigate('/timecardsearch', { replace: true });
     }
+    const ExampleTimecardData = {
+        id: 1,
+        userId: 123,
+        jobSiteName: 'Twelth Street',
+        date: '2023-10-21',
+        hours: 8,
+        tasks: 'Completed tasks A, B, and C',
+        recorded: true,
+        username: 'John Doe'
+    };
 
     return (
         <Container maxWidth="lg" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
@@ -79,13 +91,42 @@ const Dashboard = () => {
 
                     {/* Recent Timecard Paper Cards */}
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
-                        {/* Content for Timecard 1 */}
+                        <Timecard
+                            id={ExampleTimecardData.id}
+                            userId={ExampleTimecardData.userId}
+                            jobSiteName={ExampleTimecardData.jobSiteName}
+                            date={ExampleTimecardData.date}
+                            hours={ExampleTimecardData.hours}
+                            tasks={ExampleTimecardData.tasks}
+                            recorded={ExampleTimecardData.recorded}
+                            username={ExampleTimecardData.username}
+                        />
                     </Paper>
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
                         {/* Content for Timecard 2 */}
+                        <Timecard
+                            id={ExampleTimecardData.id}
+                            userId={ExampleTimecardData.userId}
+                            jobSiteName={ExampleTimecardData.jobSiteName}
+                            date={ExampleTimecardData.date}
+                            hours={ExampleTimecardData.hours}
+                            tasks={ExampleTimecardData.tasks}
+                            recorded={ExampleTimecardData.recorded}
+                            username={ExampleTimecardData.username}
+                        />
                     </Paper>
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
                         {/* Content for Timecard 3 */}
+                        <Timecard
+                            id={ExampleTimecardData.id}
+                            userId={ExampleTimecardData.userId}
+                            jobSiteName={ExampleTimecardData.jobSiteName}
+                            date={ExampleTimecardData.date}
+                            hours={ExampleTimecardData.hours}
+                            tasks={ExampleTimecardData.tasks}
+                            recorded={ExampleTimecardData.recorded}
+                            username={ExampleTimecardData.username}
+                        />
                     </Paper>
                     { }
                 </Grid>
