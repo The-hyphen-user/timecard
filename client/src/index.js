@@ -1,16 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { Provider } from 'jotai';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals';import {
+  BrowserRouter
+} from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ff4400',
+    },
+    secondary: {
+      main: '#11cb5f',
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <Provider>
-    <App />
-    </Provider>
+  <Provider store={store}>
+  <BrowserRouter>
+  <ThemeProvider theme={theme}>
+  <App/>
+  </ThemeProvider>
+  </BrowserRouter>
+  </Provider>
   </React.StrictMode>
 );
 
