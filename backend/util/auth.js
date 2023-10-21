@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import User from '../models/user.js'
+import Timecard from '../models/timecard.js'
 const router = express.Router();
 
 // User registration route
@@ -33,8 +34,11 @@ router.post('/register', (req, res) => {
 
 
 // User login route
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    res.json({ message: 'Login successful', user: req.user });
+router.post('/login', passport.authenticate('local'), async (req, res) => {
+    // console.log(res)
+    const user = req.user;
+    const recentTimecards = await Timecard.find({ user: user._id }).sort({ date: 1 }).limit(5);
+    res.json({ message: 'Login successful', user: req.user, recentTimecards })
 });
 
 
