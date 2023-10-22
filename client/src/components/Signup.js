@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../features/slices/userSlice";
 
 const Signup = () => {
-  const { inviteLink } = useParams();
+  const { activationLink } = useParams();
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
@@ -14,15 +14,18 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [activationKey, setActivationKey] = useState(activationLink)
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log("🧱USERNAME: ", username);
+    console.log('password: ', password)
+    console.log('activationKey: ', activationKey)
     axios
       .post('/api/auth/register', {
         username: username,
-        email:email,
         password: password,
+        activationKey: activationKey,
       })
       .then(res => {
         console.log(res);
@@ -30,6 +33,8 @@ const Signup = () => {
         dispatch(setUser(res.data.user));
 
         navigate("/welcome", { replace: true })
+        
+        console.log('second res',res);
       })
       .catch(err => {
         console.log(err);
@@ -45,14 +50,6 @@ const Signup = () => {
         variant="outlined"
         onChange={(e) => setUsername(e.target.value)}
         value={username}
-      />
-      <br />
-      <br />
-      <TextField
-        label="email"
-        variant="outlined"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
       />
       <br />
       <br />

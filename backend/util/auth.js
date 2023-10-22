@@ -2,22 +2,29 @@ import express from 'express';
 import passport from 'passport';
 import User from '../models/user.js'
 import Timecard from '../models/timecard.js'
+import UserActivation from '../models/userActivation.js'
 const router = express.Router();
 //route: /api/auth
 
-router.post('/register', (req, res) => {
-    const { username, email, password, admin } = req.body;
-
-    const role = admin ? 'admin' : 'user';
-
-    User.register(new User({ username, email, role }), password, (err, user) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        passport.authenticate('local')(req, res, () => {
-            res.status(201).json({ message: 'Registration successful', user: user });
+router.post('/register', async (req, res) => {
+    try{
+        const { username, password, activationkey, admin } = req.body;
+    
+        const role = admin ? 'admin' : 'user';
+        const userActivationSchema = await UserActivation.find({ activationKey: activationkey });
+        const email = userActivationSchema.email;
+    
+        User.register(new User({ username, email, role }), password, (err, user) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            passport.authenticate('local')(req, res, () => {
+                res.status(201).json({ message: 'Registration successful', user: user });
+            });
         });
-    });
+    } catch (error) {
+            console.log(error)
+    }
 });
 
 

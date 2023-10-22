@@ -17,6 +17,7 @@ import { Container, Typography } from '@mui/material';
 import JobsitePage from './components/JobsitePage';
 import Welcome from './components/Welcome';
 import JobsiteCreatePage from './components/JobsiteCreatePage';
+import Createactivation from './components/Createactivation';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -38,6 +39,7 @@ function App() {
           <Routes>
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />
+            <Route path='signup/:activationLink' element={<Signup />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='user' element={<User />}>
               <Route path='search' element={<Search />} />
@@ -53,7 +55,7 @@ function App() {
             <Route path='jobsite/create' element={<JobsiteCreatePage />} />
             <Route path='jobsite/:jobsiteId' element={<JobsitePage />} />
             <Route path='welcome' element={<Welcome/>} />
-
+            <Route path='createactivation' element={<Createactivation/>} />
 
 
             <Route path='/' element={<Home />} />
