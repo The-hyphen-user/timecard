@@ -51,9 +51,9 @@ const Header = () => {
         </Grid>
 
         <Grid item>
-          <Link to="/signup">
+          <Link to="jobsite/create">
             <Button variant="contained" color="primary">
-              Signup
+            jobsite creation magic
             </Button>
           </Link>
         </Grid>

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const jobsiteSchema = new mongoose.Schema({
-    title:{
+    name:{
         type: String,
         required: true
     },
@@ -17,12 +17,9 @@ const jobsiteSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    state:{
-        type: String,
-        required: true
-    },
     isMisc:{
         type: Boolean,
+        default: false,
         required: true
     },
     description:{
@@ -33,12 +30,9 @@ const jobsiteSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    subscribers:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
     createDate:{
         type: Date,
+        default: Date.now,
         required: true
     },
 });
@@ -46,3 +40,10 @@ const jobsiteSchema = new mongoose.Schema({
 const Jobsite = mongoose.model('Jobsite', jobsiteSchema);
 
 export default Jobsite;
+
+/*
+    subscribers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+*/
