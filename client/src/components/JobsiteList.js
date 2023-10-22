@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Jobsite from './Jobsite';
+import axios from "axios";
 
 const JobsiteList = () => {
+    const [jobsites, setJobsites] = useState([])
+    useEffect(() => {
+        axios.get('/api/jobsite/recent')
+        .then((res) => {
+            setJobsites(res.data)
+            console.log(res.data)
+        })
+
+    },[])
 
     const exampleJobsites = [
         {
@@ -30,9 +40,9 @@ const JobsiteList = () => {
         <div>
             <Container maxWidth="lg" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
                 <Grid container spacing={3} style={{ padding: '20px' }}>
-                    {exampleJobsites.map((jobsite) => (
-                        <Grid item xs={12} md={6} lg={4} key={jobsite.id}>
-                            <Link to={`/jobsite/${jobsite.id}`} style={{ textDecoration: 'none' }}>
+                    {jobsites.map((jobsite) => (
+                        <Grid item xs={12} md={6} lg={4} key={jobsite._id}>
+                            <Link to={`/jobsite/${jobsite._id}`} style={{ textDecoration: 'none' }}>
                                 <Paper style={{ padding: '20px', cursor: 'pointer' }}>
                                     <Jobsite {...jobsite} />
                                 </Paper>

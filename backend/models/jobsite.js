@@ -35,6 +35,10 @@ const jobsiteSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     },
+    lastWorked:{
+        type: Date,
+        required: true
+    },
 });
 
 const Jobsite = mongoose.model('Jobsite', jobsiteSchema);
