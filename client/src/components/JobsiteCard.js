@@ -19,7 +19,7 @@ image={pictureLink}
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-const Jobsite = ({ _id, name, address, city, description, isAdmin, totalManHours, estimatedEndDate }) => {
+const JobsiteCard = ({ _id, name, address, city, description, isAdmin, totalManHours, estimatedEndDate }) => {
   return (
     <Card variant="outlined" style={{ margin: '6px', padding: '6px' }}>
 
@@ -56,4 +56,4 @@ const Jobsite = ({ _id, name, address, city, description, isAdmin, totalManHours
   );
 };
 
-export default Jobsite;
+export default JobsiteCard;

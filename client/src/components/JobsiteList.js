@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Jobsite from './Jobsite';
+import JobsiteCard from './JobsiteCard';
 import axios from "axios";
 
 const JobsiteList = () => {
@@ -44,7 +44,7 @@ const JobsiteList = () => {
                         <Grid item xs={12} md={6} lg={4} key={jobsite._id}>
                             <Link to={`/jobsite/${jobsite._id}`} style={{ textDecoration: 'none' }}>
                                 <Paper style={{ padding: '20px', cursor: 'pointer' }}>
-                                    <Jobsite {...jobsite} />
+                                    <JobsiteCard {...jobsite} />
                                 </Paper>
                             </Link>
                         </Grid>

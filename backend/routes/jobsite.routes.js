@@ -39,7 +39,10 @@ router.get('/search', isAuthenticated, async (req, res) => {
 
 router.get('/recent', async (req, res) => {//taken out for testing: isAuthenticated,
     try{
-        const recentJobsites =  await Jobsite.find({}).sort({lastWorked: -1}).limit(5)
+        // const recentJobsites =  await Jobsite.find({}).sort({lastWorked: -1}).limit(5)
+        const datePlusOneWeek = new Date()
+        datePlusOneWeek.setDate(datePlusOneWeek.getDate() - 7)
+        const recentJobsites = await Jobsite.find({startDate: {$lte: datePlusOneWeek}}).sort({lastWorked: -1}).limit(5)
         res.json(recentJobsites)
     } catch(error){
         console.log(error)

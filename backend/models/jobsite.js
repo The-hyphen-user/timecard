@@ -44,10 +44,3 @@ const jobsiteSchema = new mongoose.Schema({
 const Jobsite = mongoose.model('Jobsite', jobsiteSchema);
 
 export default Jobsite;
-
-/*
-    subscribers:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-*/
