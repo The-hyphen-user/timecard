@@ -15,7 +15,7 @@ import routes from './routes/index.js';
 
 const PORT = process.env.API_LOCAL_PORT || 5000;
 const app = express();
-const corsOptions = {origin: [ 'http://localhost:3000' ] , credentials: true}
+const corsOptions = {origin: [ 'http://localhost:3000', 'http://localhost:3050' ] , credentials: true}
 app.use(cors(corsOptions));
 app.use(express.json());
 
