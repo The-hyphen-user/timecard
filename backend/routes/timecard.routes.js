@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import Timecard from "../models/timecard.js";
 import isAuthenticated from '../util/isAuthenticated.js'
-
+//route: /api/timecard
 router.post('/', isAuthenticated, async (req, res) => {
     try {
         const timecard = new Timecard(req.body)

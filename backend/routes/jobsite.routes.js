@@ -5,6 +5,7 @@ import Jobsite from "../models/jobsite.js";
 import isAuthenticated from '../util/isAuthenticated.js'
 import isAdmin from '../util/isAdmin.js'
 
+//route: /api/jobsite
 
 
 
@@ -36,11 +37,16 @@ router.get('/search', isAuthenticated, async (req, res) => {
     }
 })
 
-router.post('/create', isAuthenticated, isAdmin, async (req, res) => {
+router.post('/create',  async (req, res) => {//taken out for testing: isAuthenticated, isAdmin,
     try{
+        if (!req.body.startDate) {
+            req.body.startDate = Date.now()
+        }
         const jobsite = new Jobsite(req.body);
-        await jobsite.save();
-        res.json(jobsite)
+        await jobsite.save()
+        .then((result) => {
+            res.json({jobsite:jobsite, id: result.id})
+        })
     } catch(error){
         console.log(error)
     }

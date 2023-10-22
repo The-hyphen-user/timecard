@@ -3,6 +3,7 @@ import passport from 'passport';
 import User from '../models/user.js'
 import Timecard from '../models/timecard.js'
 const router = express.Router();
+//route: /api/auth
 
 router.post('/register', (req, res) => {
     const { username, email, password, admin } = req.body;

@@ -4,6 +4,7 @@ import User from "../models/user.js";
 import Recovery from "../models/recovery.js";
 import Token from '../util/token.js'
 
+//route: /api/recovery
 
 router.post('/password-reset/:token', async (req, res) => {
     try{
