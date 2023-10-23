@@ -58,7 +58,6 @@ const Dashboard = () => {
                     </Button>
                     <ButtonGroup
                         value={selectedButton}
-                        exclusive
                         onChange={handleButtonChange}
                         variant="contained" color="primary"
                         aria-label="text alignment"

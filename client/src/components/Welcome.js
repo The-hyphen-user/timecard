@@ -28,7 +28,7 @@ const Welcome = () => {
         Congratulations on registering with us. You are now part of our construction community.
         Here's what you can do:
       </Typography>
-      <Grid container spacing={2} justify="center">
+      <Grid container spacing={2} >
         <Grid item xs={12} md={6}>
           <Typography variant="body1">1. Log your working hours on different jobsites.</Typography>
         </Grid>
