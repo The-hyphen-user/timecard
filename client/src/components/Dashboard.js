@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useSelector } from "react-redux";
 
-import Timecard from './Timecard';
+import Timecard from './TimecardPage';
 
 const Dashboard = () => {
 
@@ -51,30 +51,9 @@ const Dashboard = () => {
         <Container maxWidth="lg" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
 
             <Grid container spacing={3} style={{ padding: '20px' }}>
-                {/* Left Panel */}
-                <Grid item xs={3}>
-                    <Button onClick={handleJobsite} variant="contained" color="primary" fullWidth style={{ marginBottom: '10px' }}>
-                        Jobsites
-                    </Button>
-                    <ButtonGroup
-                        value={selectedButton}
-                        onChange={handleButtonChange}
-                        variant="contained" color="primary"
-                        aria-label="text alignment"
-                        fullWidth
-                        style={{ marginTop: '10px' }}
-                    >
-                        <Button onClick={handleTimecardSearch} value="search" aria-label="left-aligned">
-                            Search Timecards
-                        </Button>
-                        <Button value="new" aria-label="centered">
-                            Add New Timecard
-                        </Button>
-                    </ButtonGroup>
-                </Grid>
 
                 {/* Right Panel */}
-                <Grid item xs={9}>
+                <Grid item xs={12}>
                     <Paper elevation={3} style={{ padding: '20px' }}>
                         <Typography variant="h6" gutterBottom>
                             Message of the Day
