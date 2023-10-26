@@ -29,7 +29,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
  */
 
 const Sidebar = () => {
-  const user = useSelector((state) => state.user.user.username);
+  const user = useSelector((state) => state.user.user.user);
   // const isAdmin = useSelector((state) => state.user.user.isAdmin);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
