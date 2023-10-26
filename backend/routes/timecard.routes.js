@@ -6,7 +6,7 @@ import isAuthenticated from '../util/isAuthenticated.js'
 
 router.get('/recent', isAuthenticated, async (req, res) => {
     try {
-        const timecards = await Timecard.find({ user: req.user._id }).sort({ createdAt: -1 }).limit(5)
+        const timecards = await Timecard.find({ user: req.user._id }).sort({ createdAt: -1 }).limit(12)
         res.json(timecards)
     } catch (error) {
         console.log(error)
