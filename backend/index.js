@@ -31,16 +31,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-  
-
 app.use('/api', routes);
 
-
-app.use('/posts', (req, res, done) => {//to be deleted
-    console.log('request received at /posts');
-    done();
-}, postRoutes);
 
 app.use('/', (req, res) => {
     res.send('you have reached home, please leave a message after the beep... beep')
