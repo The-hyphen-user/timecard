@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TextField, Button } from "@material-ui/core";
+import { Typography, Container, Grid, Paper } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../features/slices/userSlice";
-import { setTimecard } from "../features/slices/timecardSlice";
-import { setJobsite } from "../features/slices/jobsiteSlice";
-import { setRecentTimecards } from "../features/slices/recentTimecardsSlice";
+import { setRecentTimecard } from "../features/slices/timecardsSlice";
+import { setRecentJobsitesToMe, setRecentJobsitesToAll } from "../features/slices/jobsitesSlice";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -22,16 +22,17 @@ const Login = () => {
     console.log("🧱USERNAME: ", username);
     axios
       .post('/api/auth/login', {
-        
+
         username: username,
         password: password,
       })
       .then(res => {
         console.log(res);
-        
+
         dispatch(setUser(res.data.user));
-        dispatch(setRecentTimecards(res.data.recentTimecards));
-        dispatch(setJobsite(res.data.jobsite));
+        dispatch(setRecentTimecard(res.data.recentTimecards));
+        dispatch(setRecentJobsitesToMe(res.data.recentJobsites));
+        dispatch(setRecentJobsitesToAll(res.data.recentToAll))
         console.log(res.data.recentTimecards);
 
         navigate("/dashboard", { replace: true })
@@ -41,17 +42,24 @@ const Login = () => {
       })
   }
   return (
-    <div>
-      <p>Login</p>
-      <div className="login-container">
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ minHeight: '75vh' }}
+    >
+      <Paper sx={{ padding: 2, margin: 'auto', maxWidth: '300px', textAlign: 'center' }}>
+        <Typography variant="h4">Login</Typography>
         <TextField
-          label="username"
+          label="Username"
           variant="outlined"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
+          fullWidth
+          margin="normal"
         />
-        <br />
-        <br />
         <TextField
           id="outlined-password-input"
           label="Password"
@@ -60,15 +68,14 @@ const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          fullWidth
+          margin="normal"
         />
-        <br />
-        <br />
-        <Button onClick={handleSubmit} variant="contained">
-          Log In here
+        <Button onClick={handleSubmit} variant="contained" fullWidth>
+          Log In
         </Button>
-
-      </div>
-    </div>
+      </Paper>
+    </Grid>
   )
 }
 

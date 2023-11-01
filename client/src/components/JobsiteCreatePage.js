@@ -19,7 +19,6 @@ const JobsiteCreatePage = () => {
     const [isMisc, setIsMisc] = useState(false)
     const [description, setDescription] = useState('')
     const [totalHoursSoFar, setTotalHoursSoFar] = useState(0)
-    // const [subscribers, setSubscribers] = useState("")
 
     const formatDate = (date) => {
         let d = new Date(date)
@@ -50,11 +49,8 @@ const JobsiteCreatePage = () => {
             // subscribers: subscribers
         })
             .then(res => {
-                console.log('id',res.data.id)
+                console.log('id', res.data.id)
                 navigate(`/jobsite/${res.data.id}`)
-            })
-            .then((res) => {
-                
             })
     }
 
@@ -63,8 +59,6 @@ const JobsiteCreatePage = () => {
             e.target.select()
         }
     }
-
-
 
     return (
         <Container maxWidth="md" style={{ marginTop: "50px" }}>

@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, Link, Outlet, useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-
-import Container from '@mui/material/Container';
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button, Grid, Paper, Typography, Container } from '@mui/material';
 
-import Timecard from './TimecardPage';
+import TimecardCreatePage from './TimecardCreatePage'
+import JobsiteSearchPage from './JobsiteSearchPage'
+import JobsiteCard from './JobsiteCard';
+import TimecardsByJobsiteId from './TimecardsByJobsiteId';
+
+import axios from "axios";
 
 const Dashboard = () => {
 
     let navigate = useNavigate();
+    const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
     const username = useSelector((state) => state.user.user.username);
     // const recentTimecards = useSelector((state) => state.recentTimecards.recentTimecards.recentTimecards);
     const [selectedButton, setSelectedButton] = React.useState(null);
-
+    const [recentTimecards, setRecentTimecards] = useState([]);
 
     useEffect(() => {
-        if (username == null) {
-            navigate('/login', { replace: true });
-        }
+        axios.get('/api/timecards/recent')
+            .then((res) => {
+                // setRecentTimecards(res.data);
+                console.log('timecards pull', res.data);
+            })
     }, [username]);
 
     const handleButtonChange = (event, newSelectedButton) => {
@@ -48,12 +48,49 @@ const Dashboard = () => {
     };
 
     return (
-        <Container maxWidth="lg" style={{ paddingLeft: '35px', paddingRight: '35px' }}>
+        <Grid container spacing={2} >
+            
+            <Grid item xs={12} >
+            <Typography variant="h4" style={{ marginTop: '20px' }}>
+                Welcome, {username}!, dashboard
+            </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+        <TimecardCreatePage />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+        <JobsiteSearchPage />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+            <Typography variant="h4">selected jobsite then timecards</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            {selectedJobsite ? 'selectedJobsite' : 'null is null'}
+            <JobsiteCard jobsite={selectedJobsite} isSelectable={false} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant='h5'>
+              Timecards for {selectedJobsite.name}
+            </Typography>
+            <TimecardsByJobsiteId />
+          </Grid>
+        </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+            </Grid>
 
-            <Grid container spacing={3} style={{ padding: '20px' }}>
+        </Grid>
+    );
+};
 
-                {/* Right Panel */}
-                <Grid item xs={12}>
+export default Dashboard;
+
+/*
+                    
                     <Paper elevation={3} style={{ padding: '20px' }}>
                         <Typography variant="h6" gutterBottom>
                             Message of the Day
@@ -67,7 +104,6 @@ const Dashboard = () => {
                         Recent Timecards
                     </Typography>
 
-                    {/* Recent Timecard Paper Cards */}
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
                         <Timecard
                             id={ExampleTimecardData.id}
@@ -81,7 +117,6 @@ const Dashboard = () => {
                         />
                     </Paper>
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
-                        {/* Content for Timecard 2 */}
                         <Timecard
                             id={ExampleTimecardData.id}
                             userId={ExampleTimecardData.userId}
@@ -94,7 +129,6 @@ const Dashboard = () => {
                         />
                     </Paper>
                     <Paper elevation={3} style={{ padding: '20px', marginTop: '10px' }}>
-                        {/* Content for Timecard 3 */}
                         <Timecard
                             id={ExampleTimecardData.id}
                             userId={ExampleTimecardData.userId}
@@ -108,9 +142,4 @@ const Dashboard = () => {
                     </Paper>
                     { }
                 </Grid>
-            </Grid>
-        </Container>
-    );
-};
-
-export default Dashboard;
+*/

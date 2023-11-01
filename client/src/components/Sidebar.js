@@ -11,26 +11,12 @@ import Button from "@mui/material/Button";
 import EventNoteIcon from '@mui/icons-material/EventNote';//timecard
 import FoundationIcon from '@mui/icons-material/Foundation';//jobsite
 
-/*
-unused imports for now
 
-import PersonAddIcon from '@mui/icons-material/PersonAdd';//create activation
-import AppBar from '@mui/material/AppBar';
-import ListItemButton from '@mui/material/ListItemButton';
-import WorkIcon from "@mui/icons-material/Work";
-import InfoIcon from "@mui/icons-material/Info";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Grid, Menu, Typography } from "@mui/material";
-import Container from "@mui/material/Container";
-import HomeIcon from "@mui/icons-material/Home";
-import IconButton from "@mui/material/IconButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
- */
-
-const Sidebar = () => {
+const Sidebar = ({drawerOpen}) => {
   const user = useSelector((state) => state.user.user.user);
   // const isAdmin = useSelector((state) => state.user.user.isAdmin);
+
+  /*
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -44,6 +30,7 @@ const Sidebar = () => {
   const closeDrawer = () => {
     setDrawerOpen(false);
   }
+  */
 
   return (
     <div>
@@ -55,14 +42,16 @@ const Sidebar = () => {
                       <Button
                       sx={{ flex: 1, textAlign: 'left' }}
                         variant="contained"
-                        onClick={toggleDrawer}>
+                        // onClick={toggleDrawer}
+                        >
                         <MenuIcon sx={{ p: 1 }} />
                         <ListItemText primary="menu" />
                       </Button>
                       :
                       <Button
                         variant="contained"
-                        onClick={toggleDrawer}>
+                        // onClick={toggleDrawer}
+                        >
                         <MenuIcon />
                       </Button>
                     }
