@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import User from '../models/user.js'
 import Timecard from '../models/timecard.js'
+import Jobsite from '../models/jobsite.js'
 import UserActivation from '../models/userActivation.js'
 const router = express.Router();
 //route: /api/auth
@@ -32,8 +33,15 @@ router.post('/register', async (req, res) => {
 router.post('/login', passport.authenticate('local'), async (req, res) => {
     // console.log(res)
     const user = req.user;
-    const recentTimecards = await Timecard.find({ user: user._id }).sort({ date: 1 }).limit(5);
-    res.json({ message: 'Login successful', user: req.user, recentTimecards })
+    const datePlusOneWeek = new Date() 
+    datePlusOneWeek.setDate(datePlusOneWeek.getDate() + 7)
+    const recentTimecards = await Timecard.find({user: user}).sort({date : -1}).limit(15)
+    const jobsiteIds = recentTimecards.map(timecard => timecard.jobsite)
+    const uniqueJobsiteIds = Array.from(new Set(jobsiteIds));
+    const recentUniqueJobsites = await Jobsite.find({ _id:uniqueJobsiteIds })
+    
+    const recentJobsites = await Jobsite.find({startDate: {$lte: datePlusOneWeek}}).sort({lastWorked: -1}).limit(15)
+    res.json({ message: 'Login successful', user: req.user, recentTimecards, recentJobsites: recentUniqueJobsites, recentToAll: recentJobsites })
 });
 
 
