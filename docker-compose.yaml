@@ -7,6 +7,19 @@ services:
     ports:
       # - $NGINX_EXTERNAL_PORT:$NGINX_INTERNAL_PORT #production port
       - "3050:3050"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME: your_username
+      - MONGO_INITDB_ROOT_PASSWORD: your_password
+    volumes:
+      - ./data:/data/db
+
+
+
   
   api:
     build: ./backend
