@@ -1,13 +1,28 @@
 import express from "express";
 const router = express.Router();
 import Timecard from "../models/timecard.js";
+import Jobsite from '../models/jobsite.js'
 import isAuthenticated from '../util/isAuthenticated.js'
+import mongoose from 'mongoose'
 //route: /api/timecard
 
 router.get('/recent', isAuthenticated, async (req, res) => {
     try {
         const timecards = await Timecard.find({ user: req.user._id }).sort({ createdAt: -1 }).limit(12)
         res.json(timecards)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+router.get('/search/jobsite', isAuthenticated, async (req, res) => {
+    try {
+        const userId = req.user._id
+        const jobsiteId = req.query.jobsiteId
+        const timecards = await Timecard.find({ user: userId,jobsite: jobsiteId }).sort({ createdAt: -1 }).limit(5)
+        console.log('sending back timecards:', timecards, 'id:',  jobsiteId)
+        res.json({ message: 'success', timecards: timecards, jobsiteId: jobsiteId })
     } catch (error) {
         console.log(error)
     }
@@ -28,16 +43,42 @@ router.get('/search', isAuthenticated, async (req, res) => {
     }
 })
 
-router.post('/', isAuthenticated, async (req, res) => {
+router.post('/create', isAuthenticated, async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();//need session to update both or neither
     try {
-        const timecard = new Timecard(req.body)
-        timecard.user = req.user._id
-        await timecard.save()
-        res.json({ message: 'timecard submited', timecard: timecard })
+        const timecardData = req.body.timecard;
+        timecardData.user = req.user._id;
+        const jobsiteId = timecardData.jobsite;
+        const JobsiteToUpdate = await Jobsite.findById(jobsiteId)
+        const newHoursCalculation = JobsiteToUpdate.totalHoursSoFar + timecardData.hours
+        const newStartTime = timecardData.startTime 
+        const timecard = new Timecard(timecardData);
+        
+        const updatedJobsite = await Jobsite.findByIdAndUpdate(
+            jobsiteId,
+            { startTime: newStartTime, totalHoursSoFar: newHoursCalculation },
+            { new: true }
+        ).session(session);
+
+        // Save Timecard and Jobsite changes
+        await timecard.save({ session: session });
+        await session.commitTransaction();
+
+        res.json({
+            message: 'Timecard submitted successfully',
+            timecard: timecard,
+            updatedJobsite: updatedJobsite,
+            timecardId: timecard._id,
+        });
     } catch (error) {
-        console.log(error)
+        await session.abortTransaction(); // Rollback changes if there was an error
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    } finally {
+        session.endSession();
     }
-})
+});
 
 router.get("/", isAuthenticated, async (req, res) => {
     try {
