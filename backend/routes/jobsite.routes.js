@@ -34,13 +34,31 @@ router.get('/search', async (req, res) => {//taken out for testing: isAuthentica
         console.log('type', typeof searchTerm)
         const jobsites = await Jobsite.find({name: {$regex: searchTerm, $options: 'i'}}).limit(parseInt(searchQuantity))
         console.log('jobsites', jobsites)
-        res.json(jobsites)
+        res.json({jobsites: jobsites})
     } catch(error){
         console.log(error)
     }
 })
 
-router.get('/recent', async (req, res) => {//taken out for testing: isAuthenticated,
+router.get('/recenttome', async (req, res) => {//taken out for testing: isAuthenticated,
+    try{
+        const user = req.user
+        const datePlusOneWeek = new Date() 
+        datePlusOneWeek.setDate(datePlusOneWeek.getDate() + 7)
+        const recentTimecards = await Timecard.find({user: user}).sort({date : -1}).limit(15)
+        const jobsiteIds = recentTimecards.map(timecard => timecard.jobsite)
+        console.log('letsgo:', recentTimecards)
+        const uniqueJobsiteIds = Array.from(new Set(jobsiteIds));
+        const recentUniqueJobsites = await Jobsite.find({ _id:uniqueJobsiteIds })
+        console.log(recentUniqueJobsites)
+
+        res.json({jobsites: recentUniqueJobsites})
+    } catch(error){
+        console.log(error)
+    }
+})
+
+router.get('/recenttoall', async (req, res) => {//taken out for testing: isAuthenticated,
     try{
         const {searchQuantity} = req.query
         // const recentJobsites =  await Jobsite.find({}).sort({lastWorked: -1}).limit(5)
@@ -49,7 +67,7 @@ router.get('/recent', async (req, res) => {//taken out for testing: isAuthentica
         const datePlusOneWeek = new Date() 
         datePlusOneWeek.setDate(datePlusOneWeek.getDate() + 7)
         const recentJobsites = await Jobsite.find({startDate: {$lte: datePlusOneWeek}}).sort({lastWorked: -1}).limit(searchQuantity)
-        res.json(recentJobsites)
+        res.json({jobsites: recentJobsites})
     } catch(error){
         console.log(error)
     }
