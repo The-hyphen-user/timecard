@@ -18,7 +18,7 @@ import OLDTimecardList from './components/OldTimecardList';
 import TimecardPage from './components/TimecardPage';
 import TimecardCreatePage from './components/TimecardCreatePage';
 import { useSelector } from "react-redux";
-import Grid from '@mui/material/Grid';
+import {Grid, useMediaQuery} from '@mui/material';
 
 
 
@@ -27,13 +27,19 @@ function App() {
   axios.defaults.baseURL = "http://localhost:5000";
 
   const user = useSelector((state) => state.user.user.username);
+  const isMdOrAbove = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
+  useEffect(() => {
+    setDrawerOpen(isMdOrAbove);
+  },[isMdOrAbove])
+
+  const [drawerOpen, setDrawerOpen ] = useState(true)
   return (
     <div className="App">
       {user ?
         <Grid container spacing={1} >
           <Grid item xs={2} md={2}>
-            <SideBar />
+            <SideBar drawerOpen={drawerOpen} />
           </Grid>
           <Grid item
             xs={10} md={8}>
