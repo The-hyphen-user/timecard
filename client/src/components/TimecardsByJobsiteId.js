@@ -42,8 +42,6 @@ const TimecardsByJobsiteId = () => {
     }
   }, [selectedJobsite, jobsiteTimecards])
 
-
-
   return (
     <div>
     {timecards.map((timecard) => (

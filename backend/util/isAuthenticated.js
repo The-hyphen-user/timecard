@@ -7,7 +7,3 @@ const isAuthenticated = (req, res, next) => {
 };
 
 export default isAuthenticated;
-
-
-
-// export default { isAuthenticated, isAdmin };
