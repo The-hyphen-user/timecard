@@ -49,7 +49,12 @@ router.post('/create', isAuthenticated, async (req, res) => {
         timecardData.user = req.user._id;
         const jobsiteId = timecardData.jobsite;
         const JobsiteToUpdate = await Jobsite.findById(jobsiteId)
-        const newHoursCalculation = JobsiteToUpdate.totalHoursSoFar + timecardData.hours
+        if (!JobsiteToUpdate) {
+            return res.status(404).json({ message: 'Jobsite not found' });
+        }
+        const currentHours = JobsiteToUpdate.totalHoursSoFar
+        const addedHours = parseFloat(timecardData.hours)
+        const newHoursCalculation = currentHours + addedHours
         const newStartTime = timecardData.startTime 
         const timecard = new Timecard(timecardData);
         
