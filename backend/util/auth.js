@@ -5,8 +5,9 @@ import User from '../models/user.js'
 import Timecard from '../models/timecard.js'
 import Jobsite from '../models/jobsite.js'
 import UserActivation from '../models/userActivation.js'
+
 const router = express.Router();
-//route: /api/auth
+// route: /api/auth
 
 router.post('/register', async (req, res) => {
     const session = await mongoose.startSession();
@@ -17,7 +18,7 @@ router.post('/register', async (req, res) => {
         const role = admin ? 'admin' : 'user';
         const userActivation = await UserActivation.findOne({ activationKey: activationkey }).session(session)
         if (userActivation) {
-            const email = userActivation.email;
+            const { email } = userActivation
             const user = new User({ username, email, role })
             await user.setPassword(password)
             await user.save({ session });
@@ -71,10 +72,10 @@ router.post('/register', async (req, res) => {
 // User login route
 router.post('/login', passport.authenticate('local'), async (req, res) => {
     // console.log(res)
-    const user = req.user;
+    const { user } = req
     const datePlusOneWeek = new Date()
     datePlusOneWeek.setDate(datePlusOneWeek.getDate() + 7)
-    const recentTimecards = await Timecard.find({ user: user }).sort({ date: -1 }).limit(15)
+    const recentTimecards = await Timecard.find({ user }).sort({ date: -1 }).limit(15)
     const jobsiteIds = recentTimecards.map(timecard => timecard.jobsite)
     const uniqueJobsiteIds = Array.from(new Set(jobsiteIds));
     const recentUniqueJobsites = await Jobsite.find({ _id: uniqueJobsiteIds })
@@ -84,12 +85,12 @@ router.post('/login', passport.authenticate('local'), async (req, res) => {
 });
 
 
-router.get('/logout', function (req, res, next) {
-    req.logout(function (err) {
-        if (err) { return next(err); }
-        res.json({ message: 'Logout successful' })
-    });
-});
+// router.get('/logout', function (req, res, next) {
+//     req.logout(function (err) {
+//         if (err) { return next(err); }
+//         res.json({ message: 'Logout successful' })
+//     });
+// });
 // router.get('/logout', (req, res) => {
 //     req.logout();
 //     res.json({ message: 'Logout successful' });

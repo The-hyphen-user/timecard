@@ -1,12 +1,12 @@
 import express from "express";
-const router = express.Router();
 import Timecard from "../models/timecard.js";
 import Jobsite from "../models/jobsite.js";
 import isAuthenticated from '../util/isAuthenticated.js'
-import isAdmin from '../util/isAdmin.js'
+// import isAdmin from '../util/isAdmin.js'
 
-//route: /api/jobsite
+// route: /api/jobsite
 
+const router = express.Router();
 
 
 router.get("/", isAuthenticated, async (req, res) => {
@@ -27,7 +27,7 @@ router.get("/all", isAuthenticated, async (req, res) => {
     }
 })
 
-router.get('/search', async (req, res) => {//taken out for testing: isAuthenticated,
+router.get('/search', async (req, res) => {// taken out for testing: isAuthenticated,
     try {
         const { searchTerm, searchQuantity } = req.query
         const query = {
@@ -38,20 +38,20 @@ router.get('/search', async (req, res) => {//taken out for testing: isAuthentica
         }
         console.log('query', searchTerm)
         console.log('type', typeof searchTerm)
-        const jobsites = await Jobsite.find(query).limit(parseInt(searchQuantity))
+        const jobsites = await Jobsite.find(query).limit(parseInt(searchQuantity, 10))
         console.log('jobsites', jobsites)
-        res.json({ jobsites: jobsites })
+        res.json({ jobsites })
     } catch (error) {
         console.log(error)
     }
 })
 
-router.get('/recenttome', async (req, res) => {//taken out for testing: isAuthenticated,
+router.get('/recenttome', async (req, res) => {// taken out for testing: isAuthenticated,
     try {
-        const user = req.user
+        const { user } = req
         const datePlusOneWeek = new Date()
         datePlusOneWeek.setDate(datePlusOneWeek.getDate() + 7)
-        const recentTimecards = await Timecard.find({ user: user }).sort({ date: -1 }).limit(15)
+        const recentTimecards = await Timecard.find({ user }).sort({ date: -1 }).limit(15)
         const jobsiteIds = recentTimecards.map(timecard => timecard.jobsite)
         console.log('letsgo:', recentTimecards)
         const uniqueJobsiteIds = Array.from(new Set(jobsiteIds));
@@ -64,7 +64,7 @@ router.get('/recenttome', async (req, res) => {//taken out for testing: isAuthen
     }
 })
 
-router.get('/recenttoall', async (req, res) => {//taken out for testing: isAuthenticated,
+router.get('/recenttoall', async (req, res) => {// taken out for testing: isAuthenticated,
     try {
         const { searchQuantity } = req.query
         // const recentJobsites =  await Jobsite.find({}).sort({lastWorked: -1}).limit(5)
@@ -79,7 +79,7 @@ router.get('/recenttoall', async (req, res) => {//taken out for testing: isAuthe
     }
 })
 
-router.post('/create', async (req, res) => {//taken out for testing: isAuthenticated, isAdmin,
+router.post('/create', async (req, res) => {// taken out for testing: isAuthenticated, isAdmin,
     try {
         if (!req.body.startDate) {
             req.body.startDate = Date.now()
@@ -89,7 +89,7 @@ router.post('/create', async (req, res) => {//taken out for testing: isAuthentic
         console.log('last worked', jobsite.lastWorked)
         await jobsite.save()
             .then((result) => {
-                res.json({ jobsite: jobsite, id: result.id })
+                res.json({ jobsite, id: result.id })
             })
     } catch (error) {
         console.log(error)

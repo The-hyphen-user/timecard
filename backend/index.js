@@ -2,20 +2,19 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
-const LocalStrategy = passportLocal.Strategy;
 import cors from 'cors';
-import db from './db/db.js';
 import dotenv from 'dotenv';
-dotenv.config();
-
-
-import postRoutes from './routes/posts.js';
 import User from './models/user.js';
 import routes from './routes/index.js';
 
+
+dotenv.config();
+const LocalStrategy = passportLocal.Strategy;
+
+
 const PORT = process.env.API_LOCAL_PORT || 5000;
 const app = express();
-const corsOptions = {origin: [ 'http://localhost:3000', 'http://localhost:3050' ] , credentials: true}
+const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050'], credentials: true }
 app.use(cors(corsOptions));
 app.use(express.json());
 

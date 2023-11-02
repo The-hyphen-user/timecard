@@ -1,26 +1,30 @@
 import express from "express";
-const router = express.Router();
 import User from "../models/user.js";
 import UserActivation from "../models/userActivation.js";
-import Recovery from "../models/recovery.js";
+// import Recovery from "../models/recovery.js";
 import Token from '../util/token.js'
-//route: /api/activation
+// route: /api/activation
+
+
+const router = express.Router();
+
 router.post('/create', async (req, res) => {
     try {
         let newToken;
         let tokenExists = true;
 
-        const email = req.body.email
+        const { email } = req.body
         if (!email) {
             res.status(404).json({ message: 'missing email' })
         }
-        const dupUser = await User.findOne({ email: email })
+        const dupUser = await User.findOne({ email })
         if (dupUser) {
             res.status(409).json({ message: "email already taken" })
         }
 
         while (tokenExists) {
             newToken = Token(32);
+            /* eslint-disable no-await-in-loop */
             const existingActivation = await UserActivation.findOne({ activationKey: newToken });
 
             if (!existingActivation) {
@@ -28,7 +32,7 @@ router.post('/create', async (req, res) => {
 
             }
         }
-        const userActivation = new UserActivation({ email: email, activationKey: newToken })
+        const userActivation = new UserActivation({ email, activationKey: newToken })
         await userActivation.save()
         console.log('userActivation:', userActivation)
         res.status(201).json({ message: 'User created', activationKey: userActivation.activationKey })

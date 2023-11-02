@@ -6,7 +6,15 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "always",
+        "jsx": "always"
+      }
+    ]
     // ,"no-param-reassign": "off"
   }
 }
