@@ -44,3 +44,5 @@ thumb
 sketch
 
 *.env
+
+*data
