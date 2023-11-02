@@ -12,6 +12,11 @@ import {
 import axios from 'axios'
 
 const TimecardCard = ({ timecard, jobsiteName }) => {
+
+  const formattedDate = new Date(timecard.date).toLocaleDateString();
+  const formattedStartTime = new Date(timecard.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formattedEndTime = new Date(timecard.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
   return (
     <div>
       <Card variant="outlined" style={{ margin: '6px', padding: '6px' }}>
@@ -20,13 +25,16 @@ const TimecardCard = ({ timecard, jobsiteName }) => {
             {jobsiteName?jobsiteName:''}
           </Typography>
           <Typography color="textSecondary" align="left">
-            {timecard.date}
+            {formattedDate}
           </Typography>
           <Typography color="textSecondary" gutterBottom align="left">
             hours: {timecard.hours}
           </Typography>
           <Typography color="textSecondary" gutterBottom align="left">
-            {timecard.startTime}
+            {formattedStartTime} - {formattedEndTime}
+          </Typography>
+          <Typography color="textSecondary" gutterBottom align="left">
+            {timecard.description}
           </Typography>
         </CardContent>
       </Card>

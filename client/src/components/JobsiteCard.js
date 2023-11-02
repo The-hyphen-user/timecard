@@ -9,6 +9,11 @@ import { setSelectedJobsite } from '../features/slices/jobsitesSlice'
 
 // const JobsiteCard = ({ _id, name, address, city, startDate, description, totalHoursSoFar, createDate, lastWorked, isSelectable, isLinkable }) => {
 const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
+  const formattedStartDate = new Date(jobsite.startDate).toLocaleDateString();
+  const formattedLastWorked = new Date(jobsite.lastWorked).toLocaleDateString();
+  // const formatteda = new Date(jobsite).toLocaleDateString();
+  // const formatted = new Date(jobsite).toLocaleDateString();
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const admin = true
@@ -64,17 +69,17 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
           </Typography>
           {admin &&
             <Typography variant="body2" component="div" gutterBottom align="left">
-              {jobsite.totalHoursSoFar}
+              total hours: {jobsite.totalHoursSoFar}
             </Typography>
           }
           {admin &&
             <Typography variant="body2" component="div" gutterBottom align="left">
-              {jobsite.createDate}
+              Start Date: {formattedStartDate}
             </Typography>
           }
           {admin &&
             <Typography variant="body2" component="div" gutterBottom align="left">
-              {jobsite.lastWorked}
+              last worked: {formattedLastWorked}
             </Typography>
           }
         </CardContent>
