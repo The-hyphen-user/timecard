@@ -1,13 +1,14 @@
 import { Button, Container, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState, } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import {addTimecardToJobsiteId} from '../features/slices/timecardsSlice'
+import { addTimecardToJobsiteId } from '../features/slices/timecardsSlice'
 import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import axios from 'axios';
 import TimecardCard from './TimecardCard';
@@ -19,13 +20,13 @@ const TimecardCreatePage = () => {
   const [recentTimecards, setRecentTimecards] = useState([])
   const [selectedDate, setSelectedDate] = useState(dayjs(new Date()))
   const [selectedHours, setSelectedHours] = useState(0)
-  const [startTime, setStartTime] = useState(0)
-  const [endTime, setEndTime] = useState(0)
+  const [startTime, setStartTime] = useState(dayjs(new Date()))
+  const [endTime, setEndTime] = useState(dayjs(new Date()))
   const [submittedTimecard, setSubmittedTimecard] = useState(null)
   const [submittedTimecardId, setSubmittedTimecardId] = useState('')
   const [error, setError] = useState('')
 
-  const selectedJobsite =  useSelector((state) => state.jobsites.selectedJobsite)
+  const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
   const [submittedJobsiteName, setSubmittedJobsiteName] = useState('')
 
   useEffect(() => {
@@ -138,7 +139,7 @@ const TimecardCreatePage = () => {
                       inputProps={{
                         min: 0,
                         max: 24,
-                        step: 0.25, 
+                        step: 0.25,
                       }}
                       sx={{}}
                       value={selectedHours}
@@ -148,9 +149,20 @@ const TimecardCreatePage = () => {
                 </Grid>
                 <Grid item xs={true} sm={true} md={true}>
                   <FormControl fullWidth>
-                    <Typography variant="h6" gutterBottom>
-                      start/end
-                    </Typography>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <TimePicker
+                        label='start time'
+                        value={startTime}
+                        onChange={(newTime) => setStartTime(newTime)}
+                      />
+                      <br/>
+                      
+                      <TimePicker
+                        label='end time'
+                        value={endTime}
+                        onChange={(newTime) => setEndTime(newTime)}
+                      />
+                    </LocalizationProvider>
                   </FormControl>
                 </Grid>
               </Grid>
