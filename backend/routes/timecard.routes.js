@@ -13,7 +13,6 @@ router.get('/recent', isAuthenticated, async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-
 })
 
 router.get('/search/jobsite', isAuthenticated, async (req, res) => {
@@ -26,7 +25,6 @@ router.get('/search/jobsite', isAuthenticated, async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-
 })
 
 router.get('/search', isAuthenticated, async (req, res) => {

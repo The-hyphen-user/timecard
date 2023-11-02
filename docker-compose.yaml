@@ -15,7 +15,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=your_username
       - MONGO_INITDB_ROOT_PASSWORD=your_password
-      - MONGODB_CONNECTION_URL=mongodb://your_username:your_password@REPLACE_localhost:27017/REPLACE_your_database_name
+      - MONGODB_CONNECTION_URL=mongodb://your_username:your_password@ocalhost:27017/your_database_name
     volumes:
       - ./data:/data/db
 
