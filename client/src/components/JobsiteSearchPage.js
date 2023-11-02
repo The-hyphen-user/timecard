@@ -118,7 +118,7 @@ const JobsiteSearchPage = () => {
                         </Grid>
                         {jobsites.map((jobsite) => (
                             <Grid item xs={12} sm={12} lg={12} xl={12}
-                                sx={{ flex: 1, overflow: 'auto' }}>
+                                >
                                 <JobsiteCard key={jobsite._id} jobsite={jobsite} isSelectable={true} />
                             </Grid>
                         ))}
