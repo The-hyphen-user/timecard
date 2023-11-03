@@ -38,7 +38,8 @@ const Login = () => {
         navigate("/dashboard", { replace: true })
       })
       .catch(err => {
-        console.log(err);
+        console.log('loging error:', err);
+        setError(err)
       })
   }
   return (
@@ -50,31 +51,49 @@ const Login = () => {
       justifyContent="center"
       sx={{ minHeight: '75vh' }}
     >
-      <Paper sx={{ padding: 2, margin: 'auto', maxWidth: '300px', textAlign: 'center' }}>
-        <Typography variant="h4">Login</Typography>
-        <TextField
-          label="Username"
-          variant="outlined"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          variant="outlined"
-          autoComplete="current-password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          fullWidth
-          margin="normal"
-        />
-        <Button onClick={handleSubmit} variant="contained" fullWidth>
-          Log In
-        </Button>
-      </Paper>
+      <Grid item>
+        <Paper sx={{ padding: 2, margin: 'auto', maxWidth: '300px', textAlign: 'center' }}>
+          <Typography variant="h4">Login</Typography>
+          <TextField
+            label="Username"
+            variant="outlined"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            id="outlined-password-input"
+            label="Password"
+            variant="outlined"
+            autoComplete="current-password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            fullWidth
+            margin="normal"
+          />
+          <Button onClick={handleSubmit} variant="contained" fullWidth>
+            Log In
+          </Button>
+        </Paper>
+      </Grid>
+      <Grid item>
+        {error ?
+          <>
+            <Typography>
+              {error.message}
+            </Typography>
+            <Typography>
+              {error.name}
+            </Typography>
+            <Typography>
+              {error.code}
+            </Typography>
+          </>
+          : <></>
+        }
+      </Grid>
     </Grid>
   )
 }
