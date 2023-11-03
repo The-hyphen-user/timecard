@@ -18,7 +18,8 @@ import OLDTimecardList from './components/OldTimecardList';
 import TimecardPage from './components/TimecardPage';
 import TimecardCreatePage from './components/TimecardCreatePage';
 import { useSelector } from "react-redux";
-import {Grid, useMediaQuery} from '@mui/material';
+import { Grid, useMediaQuery } from '@mui/material';
+import TimecardSearchPage from './components/TimecardSearchPage';
 
 
 
@@ -31,9 +32,9 @@ function App() {
 
   useEffect(() => {
     setDrawerOpen(isMdOrAbove);
-  },[isMdOrAbove])
+  }, [isMdOrAbove])
 
-  const [drawerOpen, setDrawerOpen ] = useState(true)
+  const [drawerOpen, setDrawerOpen] = useState(true)
   return (
     <div className="App">
       {user ?
@@ -56,6 +57,8 @@ function App() {
                 <Route path='welcome' element={<Welcome />} />
                 <Route path='createactivation' element={<Createactivation />} />
                 <Route path='Timecard' element={<OLDTimecardList />} />
+                <Route path='timecardsearchpage' element={<TimecardSearchPage />} />
+
                 <Route path='Timecard/:timecardId' element={<TimecardPage />} />
                 <Route path='Timecard/create:timecardId' element={<TimecardCreatePage />} />
                 <Route path='Timecard/create' element={<TimecardCreatePage />} />

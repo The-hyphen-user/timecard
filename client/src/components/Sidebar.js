@@ -12,7 +12,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';//timecard
 import FoundationIcon from '@mui/icons-material/Foundation';//jobsite
 
 
-const Sidebar = ({drawerOpen}) => {
+const Sidebar = ({ drawerOpen }) => {
   const user = useSelector((state) => state.user.user.user);
   // const isAdmin = useSelector((state) => state.user.user.isAdmin);
 
@@ -34,72 +34,72 @@ const Sidebar = ({drawerOpen}) => {
 
   return (
     <div>
-              <Drawer anchor="left" variant="permanent"
-              sx={{ width: '240px', border: '1px solid #000', height: 'auto'}}>
-                <List>
-                  <ListItem sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
-                    {drawerOpen ?
-                      <Button
-                      sx={{ flex: 1, textAlign: 'left' }}
-                        variant="contained"
-                        // onClick={toggleDrawer}
-                        >
-                        <MenuIcon sx={{ p: 1 }} />
-                        <ListItemText primary="menu" />
-                      </Button>
-                      :
-                      <Button
-                        variant="contained"
-                        // onClick={toggleDrawer}
-                        >
-                        <MenuIcon />
-                      </Button>
-                    }
-                  </ListItem>
-                  <ListItem component={Link} to="/Timecard"
-                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
-                    {drawerOpen ?
-                      <Button variant="contained" 
-                      sx={{ flex: 1, textAlign: 'left' }}>
-                        <EventNoteIcon sx={{ p: 1 }} />
-                        <ListItemText primary="time cards" />
-                      </Button>
-                      :
-                      <Button variant="contained">
-                        <EventNoteIcon />
-                      </Button>
-                    }
-                  </ListItem>
-                  <ListItem component={Link} to="/jobsite" 
-                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
-                    {drawerOpen ?
-                      <Button variant="contained"
-                      sx={{ flex: 1, textAlign: 'left' }}>
-                        <FoundationIcon sx={{ p: 1 }} />
-                        <ListItemText primary="jobsites" />
-                      </Button>
-                      :
-                      <Button variant="contained">
-                        <FoundationIcon />
-                      </Button>
-                    }
-                  </ListItem>
-                  <ListItem component={Link} to="/dashboard"
-                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
-                    {drawerOpen ?
-                      <Button variant="contained">
-                        <DashboardIcon sx={{ p: 1 }} />
-                        <ListItemText primary="dashboard" />
-                      </Button>
-                      :
-                      <Button variant="contained">
-                        <DashboardIcon />
-                      </Button>
-                    }
-                  </ListItem>
-                </List>
-              </Drawer>
-            
+      <Drawer anchor="left" variant="permanent"
+        sx={{ width: '240px', border: '1px solid #000', height: 'auto' }}>
+        <List>
+          <ListItem sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
+            {drawerOpen ?
+              <Button
+                sx={{ flex: 1, textAlign: 'left' }}
+                variant="contained"
+              // onClick={toggleDrawer}
+              >
+                <MenuIcon sx={{ p: 1 }} />
+                <ListItemText primary="menu" />
+              </Button>
+              :
+              <Button
+                variant="contained"
+              // onClick={toggleDrawer}
+              >
+                <MenuIcon />
+              </Button>
+            }
+          </ListItem>
+          <ListItem component={Link} to="/timecardsearchpage"
+            sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
+            {drawerOpen ?
+              <Button variant="contained"
+                sx={{ flex: 1, textAlign: 'left' }}>
+                <EventNoteIcon sx={{ p: 1 }} />
+                <ListItemText primary="time cards" />
+              </Button>
+              :
+              <Button variant="contained">
+                <EventNoteIcon />
+              </Button>
+            }
+          </ListItem>
+          <ListItem component={Link} to="/jobsite"
+            sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
+            {drawerOpen ?
+              <Button variant="contained"
+                sx={{ flex: 1, textAlign: 'left' }}>
+                <FoundationIcon sx={{ p: 1 }} />
+                <ListItemText primary="jobsites" />
+              </Button>
+              :
+              <Button variant="contained">
+                <FoundationIcon />
+              </Button>
+            }
+          </ListItem>
+          <ListItem component={Link} to="/dashboard"
+            sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
+            {drawerOpen ?
+              <Button variant="contained">
+                <DashboardIcon sx={{ p: 1 }} />
+                <ListItemText primary="dashboard" />
+              </Button>
+              :
+              <Button variant="contained">
+                <DashboardIcon />
+              </Button>
+            }
+          </ListItem>
+        </List>
+      </Drawer>
+
     </div>
   );
 };

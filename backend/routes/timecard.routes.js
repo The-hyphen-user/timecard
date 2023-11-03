@@ -21,6 +21,7 @@ router.get('/search/jobsite', isAuthenticated, async (req, res) => {
     try {
         const userId = req.user._id
         const { jobsiteId } = req.query
+
         const timecards = await Timecard.find({ user: userId, jobsite: jobsiteId }).sort({ createdAt: -1 }).limit(5)
         console.log('sending back timecards:', timecards, 'id:', jobsiteId)
         res.json({ message: 'success', timecards, jobsiteId })
@@ -29,19 +30,24 @@ router.get('/search/jobsite', isAuthenticated, async (req, res) => {
     }
 })
 
-// router.get('/search', isAuthenticated, async (req, res) => {
-//     try {
-//         const params = req.query
-//         const user = req.user._id
-//         const searchTerm = params.searchTerm
-//         const startDate = params.startDate
-//         const endDate = params.endDate
-//         const page = params.page
-//         const results = await Timecard.find({})
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
+router.get('/search', isAuthenticated, async (req, res) => {
+    try {
+        const { searchTerm } = req.query;
+        const userId = req.user._id
+        const query = {
+            $or: [
+                { name: { $regex: searchTerm, $options: 'i' } },
+                { description: { $regex: searchTerm, $options: 'i' } }
+            ],
+            user: userId
+        }
+        const timecards = await Timecard.find(query).limit(20)
+        res.json({ timecards })
+    } catch (error) {
+
+        console.log(error)
+    }
+})
 
 router.post('/create', isAuthenticated, async (req, res) => {
     const session = await mongoose.startSession();

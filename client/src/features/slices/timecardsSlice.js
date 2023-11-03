@@ -1,8 +1,9 @@
-import  { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { 
+const initialState = {
     recentTimecards: [],
     jobsiteTimecards: [],
+    searchecTimecards: [],
 };
 /*
 jobsiteTimecards: [
@@ -21,7 +22,7 @@ export const timecardsSlice = createSlice({
         setRecentTimecard: (state, action) => {
             state.recentTimecards = action.payload;
         },
-        addRecentTimecard : (state, action) => {
+        addRecentTimecard: (state, action) => {
             state.recentTimecards.push(action.payload)
         },
         addJobsiteTimecards: (state, action) => {
@@ -29,19 +30,22 @@ export const timecardsSlice = createSlice({
             state.jobsiteTimecards.push({ jobsiteId, timecards })
         },
         replaceJobsiteTimecard: (state, action) => {
-            const {  jobsiteId, timecardId, timecard } = action.payload
+            const { jobsiteId, timecardId, timecard } = action.payload
             const jobsiteIndex = state.jobsiteTimecards.findIndex((jobsite) => jobsite.jobsiteId === jobsiteId);
             const timecardIndex = state.jobsiteTimecards[jobsiteIndex].timecards.findIndex((timecard) => timecard._id === timecardId);
             state.jobsiteTimecards[jobsiteIndex].timecards[timecardIndex] = timecard;
         },
         addTimecardToJobsiteId: (state, action) => {
-            const { jobsiteId, timecard }  = action.payload;
+            const { jobsiteId, timecard } = action.payload;
             const jobsiteIndex = state.jobsiteTimecards.findIndex((jobsite) => jobsite.jobsiteId === jobsiteId);
             state.jobsiteTimecards[jobsiteIndex].timecards.push(timecard)
-        }
+        },
+        setSearchedTimecards: (state, action) => {
+            state.searchecTimecards = action.payload;
+        },
     },
 });
 
-export const { setRecentTimecard, addRecentTimecard, addJobsiteTimecards, replaceJobsiteTimecard, addTimecardToJobsiteId } = timecardsSlice.actions;
+export const { setRecentTimecard, addRecentTimecard, addJobsiteTimecards, replaceJobsiteTimecard, addTimecardToJobsiteId, setSearchedTimecards } = timecardsSlice.actions;
 
 export default timecardsSlice.reducer;
