@@ -6,6 +6,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import User from './models/user.js';
 import routes from './routes/index.js';
+/* eslint-disable-next-line no-unused-vars */
+import db from './db/db.js'
 
 
 dotenv.config();
