@@ -1,16 +1,16 @@
-import {createSlice } from  '@reduxjs/toolkit' ;
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   bearerToken: null,
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setBearerToken: (state, action) => {
       state.bearerToken = action.payload;
-    }, 
+    },
     resetBearerToken: (state) => {
       state.bearerToken = initialState.bearerToken;
     },

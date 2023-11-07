@@ -6,9 +6,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
 const mailgun = new Mailgun(formData);
-const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY || 'key-yourkeyhere' });
+const mg = mailgun.client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY || 'key-yourkeyhere',
+});
 
 // mg.messages.create('sandbox-123.mailgun.org', {
 //     from: "Excited User <mailgun@sandbox-123.mailgun.org>",
@@ -21,18 +23,18 @@ const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY ||
 //     .catch(err => console.log(err)); // logs any error
 
 const sendEmail = (data) => {
-    try {
-        const { from, to, subject, text, html } = data;
-        mg.messages.create('sandbox-123.mailgun.org', {
-            from,
-            to,
-            subject,
-            text,
-            html
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
+  try {
+    const { from, to, subject, text, html } = data;
+    mg.messages.create('sandbox-123.mailgun.org', {
+      from,
+      to,
+      subject,
+      text,
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default sendEmail;

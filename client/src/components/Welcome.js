@@ -1,12 +1,12 @@
-import React from "react";
-import { Typography, Button, Container, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Typography, Button, Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(8),
-    textAlign: "center",
+    textAlign: 'center',
   },
   greeting: {
     marginBottom: theme.spacing(2),
@@ -25,18 +25,24 @@ const Welcome = () => {
         Welcome to Our Timecard App🎉!
       </Typography>
       <Typography variant="body1" paragraph>
-        Congratulations on registering with us. You are now part of our construction community.
-        Here's what you can do:
+        Congratulations on registering with us. You are now part of our
+        construction community. Here's what you can do:
       </Typography>
-      <Grid container spacing={2} >
+      <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Typography variant="body1">1. Log your working hours on different jobsites.</Typography>
+          <Typography variant="body1">
+            1. Log your working hours on different jobsites.
+          </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="body1">2. Look up different jobsites.</Typography>
+          <Typography variant="body1">
+            2. Look up different jobsites.
+          </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="body1">3. View your timecard history and reports.</Typography>
+          <Typography variant="body1">
+            3. View your timecard history and reports.
+          </Typography>
         </Grid>
       </Grid>
       <Button
