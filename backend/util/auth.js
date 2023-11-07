@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
 
     const role = admin ? 'admin' : 'user';
     const userActivation = await UserActivation.findOne({
-      activationKey: activationkey,
+      activationkey,
     }).session(session);
     if (userActivation) {
       const { email } = userActivation;
@@ -31,6 +31,7 @@ router.post('/register', async (req, res) => {
 
       await session.commitTransaction();
       session.endSession();
+      res.status(201).json({ user })
     } else {
       await session.abortTransaction();
       session.endSession();
