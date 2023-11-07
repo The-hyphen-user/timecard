@@ -19,14 +19,6 @@ const Dashboard = () => {
     const [selectedButton, setSelectedButton] = React.useState(null);
     const [recentTimecards, setRecentTimecards] = useState([]);
 
-    useEffect(() => {
-        axios.get('/api/timecards/recent')
-            .then((res) => {
-                // setRecentTimecards(res.data);
-                console.log('timecards pull', res.data);
-            })
-    }, [username]);
-
     const handleButtonChange = (event, newSelectedButton) => {
         setSelectedButton(newSelectedButton);
     };
@@ -49,32 +41,32 @@ const Dashboard = () => {
 
     return (
         <Grid container spacing={2} >
-            
+
             <Grid item xs={12} >
-            <Typography variant="h4" style={{ marginTop: '20px' }}>
-                Welcome, {username}!, dashboard
-            </Typography>
+                <Typography variant="h4" style={{ marginTop: '20px' }}>
+                    Welcome, {username}!, dashboard
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
-        <TimecardCreatePage />
+                <TimecardCreatePage />
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
-        <JobsiteSearchPage />
+                <JobsiteSearchPage />
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
-            <Typography variant="h4">selected jobsite then timecards</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            {selectedJobsite ? 'selectedJobsite' : 'null is null'}
-            <JobsiteCard jobsite={selectedJobsite} isSelectable={false} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='h5'>
-              Timecards for {selectedJobsite.name}
-            </Typography>
-            <TimecardsByJobsiteId />
-          </Grid>
-        </Grid>
+                <Typography variant="h4">selected jobsite then timecards</Typography>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        {selectedJobsite ? 'selectedJobsite' : 'null is null'}
+                        <JobsiteCard jobsite={selectedJobsite} isSelectable={false} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='h5'>
+                            Timecards for {selectedJobsite.name}
+                        </Typography>
+                        <TimecardsByJobsiteId />
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
             </Grid>

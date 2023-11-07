@@ -29,16 +29,6 @@ const TimecardCreatePage = () => {
   const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
   const [submittedJobsiteName, setSubmittedJobsiteName] = useState('')
 
-  useEffect(() => {
-    axios.get('/api/jobsites/recent')
-      .then((res) => {
-        console.log(res.data)
-        setRecentTimecards(res.data)
-
-
-      })
-  }, [])
-
   const handleSubmit = () => {//add timecard to db
     console.log('submitting timecard date')
     console.log('date:', selectedDate)
@@ -155,8 +145,8 @@ const TimecardCreatePage = () => {
                         value={startTime}
                         onChange={(newTime) => setStartTime(newTime)}
                       />
-                      <br/>
-                      
+                      <br />
+
                       <TimePicker
                         label='end time'
                         value={endTime}
