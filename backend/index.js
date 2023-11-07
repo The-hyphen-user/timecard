@@ -36,7 +36,7 @@ app.use('/api', routes);
 
 
 app.use('/', (req, res) => {
-    res.send('you have reached home, please leave a message after the beep... beep')
+    res.status(200).send(`you have reached home ${req.path}, please leave a message after the beep... beep`)
 })
 
 
