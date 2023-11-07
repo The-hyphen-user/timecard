@@ -6,14 +6,14 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
 
 import TimecardCard from './TimecardCard';
-import {addJobsiteTimecards} from '../features/slices/timecardsSlice'
+import { addJobsiteTimecards } from '../features/slices/timecardsSlice'
 
 
 const TimecardsByJobsiteId = () => {
 
   const dispatch = useDispatch()
 
-  const selectedJobsite =  useSelector((state) => state.jobsites.selectedJobsite)
+  const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
   // const timecardByJobsiteId = useSelector((state) => state.timecardByJobsiteId.timecards)
   const jobsiteTimecards = useSelector((state) => state.timecards.jobsiteTimecards)
   const [timecards, setTimecards] = useState([])
@@ -33,7 +33,7 @@ const TimecardsByJobsiteId = () => {
           .then((res) => {
             console.log('timecards responce:', res.data)
             setTimecards(res.data.timecards)
-            dispatch(addJobsiteTimecards ({
+            dispatch(addJobsiteTimecards({
               jobsiteId: selectedJobsite._id,
               timecards: res.data.timecards
             }))
@@ -44,10 +44,10 @@ const TimecardsByJobsiteId = () => {
 
   return (
     <div>
-    {timecards.map((timecard) => (
-        <TimecardCard key={timecard._id} timecard ={timecard} jobsiteName={selectedJobsite.name} />
-    ))}
-</div>
+      {timecards.map((timecard) => (
+        <TimecardCard key={timecard._id} timecard={timecard} jobsiteName={selectedJobsite.name} />
+      ))}
+    </div>
   )
 }
 
