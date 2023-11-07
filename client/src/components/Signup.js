@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../features/slices/userSlice';
 
 const Signup = () => {
-  const { activationLink } = useParams();
+  const { activationId } = useParams();
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
@@ -14,18 +14,17 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [activationKey, setActivationKey] = useState(activationLink);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('🧱USERNAME: ', username);
     console.log('password: ', password);
-    console.log('activationKey: ', activationKey);
+    console.log('activationKey: ', activationId);
     axios
       .post('/api/auth/register', {
         username: username,
         password: password,
-        activationKey: activationKey,
+        activationKey: activationId,
       })
       .then((res) => {
         console.log(res);

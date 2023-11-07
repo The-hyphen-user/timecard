@@ -79,6 +79,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="*" element={<Navigate to="/" />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="signup/:activationId" element={<Signup />} />
+            <Route path="createactivation" element={<Createactivation />} />
+
           </Routes>
         </Container>
       )}
