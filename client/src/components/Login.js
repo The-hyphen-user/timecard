@@ -44,6 +44,9 @@ const Login = () => {
         setError(err);
       });
   };
+  const activation = () => {
+    navigate('/createactivation', { replace: true });
+  }
   return (
     <Grid
       container
@@ -97,6 +100,9 @@ const Login = () => {
         ) : (
           <></>
         )}
+      </Grid>
+      <Grid item>
+        <Button onClick={activation}>make user</Button>
       </Grid>
     </Grid>
   );
