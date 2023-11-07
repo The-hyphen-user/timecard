@@ -1,14 +1,14 @@
-import mongoose from 'mongoose'
-import passportLocalMongoose from 'passport-local-mongoose'
+import mongoose from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    role:{
-        type:String,
-        enum: ['admin', 'user'],
-        default: 'user'
-    }
+  username: String,
+  password: String,
+  role: {
+    type: String,
+    enum: ['admin', 'user'],
+    default: 'user',
+  },
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -1,8 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: 
-  {
+  user: {
     username: null,
     role: null,
     id: null,
@@ -11,7 +10,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUser: (state, action) => {
@@ -22,7 +21,7 @@ export const userSlice = createSlice({
     },
     updateUserBalance: (state, action) => {
       state.user.balance = action.payload;
-    }
+    },
   },
 });
 

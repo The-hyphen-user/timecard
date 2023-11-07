@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -8,21 +8,26 @@ import {
   Typography,
   Grid,
   TextField,
-} from '@mui/material'
-import axios from 'axios'
+} from '@mui/material';
+import axios from 'axios';
 
 const TimecardCard = ({ timecard, jobsiteName }) => {
-
   const formattedDate = new Date(timecard.date).toLocaleDateString();
-  const formattedStartTime = new Date(timecard.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const formattedEndTime = new Date(timecard.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formattedStartTime = new Date(timecard.startTime).toLocaleTimeString(
+    [],
+    { hour: '2-digit', minute: '2-digit' },
+  );
+  const formattedEndTime = new Date(timecard.endTime).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
   return (
     <div>
       <Card variant="outlined" style={{ margin: '6px', padding: '6px' }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom align="left">
-            {jobsiteName?jobsiteName:''}
+            {jobsiteName ? jobsiteName : ''}
           </Typography>
           <Typography color="textSecondary" align="left">
             {formattedDate}
@@ -39,7 +44,7 @@ const TimecardCard = ({ timecard, jobsiteName }) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default TimecardCard
+export default TimecardCard;

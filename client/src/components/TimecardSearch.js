@@ -6,9 +6,11 @@ const TimecardSearch = ({ timecards }) => {
   return (
     <div>
       <h3>Timecard Search</h3>
-      {timecards ? timecards.map(timecard => (
-        <Timecard key={timecard.id} {...timecard} />
-      )) : null}
+      {timecards
+        ? timecards.map((timecard) => (
+            <Timecard key={timecard.id} {...timecard} />
+          ))
+        : null}
     </div>
   );
 };

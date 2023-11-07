@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -9,33 +9,33 @@ import {
   Grid,
   TextField,
   Container,
-} from '@mui/material'
-import axios from 'axios'
+} from '@mui/material';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
-import TimecardCreatePage from './TimecardCreatePage'
-import JobsiteSearchPage from './JobsiteSearchPage'
+import TimecardCreatePage from './TimecardCreatePage';
+import JobsiteSearchPage from './JobsiteSearchPage';
 import TimecardCard from './TimecardCard';
 import JobsiteCard from './JobsiteCard';
 import TimecardsByJobsiteId from './TimecardsByJobsiteId';
 import { setSelectedJobsite } from '../features/slices/jobsitesSlice';
 
-
 const OLDTimecardList = () => {
-  const [timecards, setTimecards] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [displayQuantity, setDisplayQuantity] = useState(5)
-  const [alteredSelectedJobsite, setAlteredSelectedJobsite] = useState({})
+  const [timecards, setTimecards] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [displayQuantity, setDisplayQuantity] = useState(5);
+  const [alteredSelectedJobsite, setAlteredSelectedJobsite] = useState({});
 
-  const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
+  const selectedJobsite = useSelector(
+    (state) => state.jobsites.selectedJobsite,
+  );
 
   useEffect(() => {
-    axios.get('/api/timecard/recent')
-      .then((res) => {
-        setTimecards(res.data)
-        console.log(res.data)
-      })
-  }, [])
+    axios.get('/api/timecard/recent').then((res) => {
+      setTimecards(res.data);
+      console.log(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     setAlteredSelectedJobsite({
@@ -49,22 +49,22 @@ const OLDTimecardList = () => {
       totalHoursSoFar: selectedJobsite.totalHoursSoFar,
       createDate: selectedJobsite.createDate,
       lastWorked: selectedJobsite.lastWorked,
-    })
+    });
     //console.log('alteredSelectedJobsite', alteredSelectedJobsite, 'selectedJobsite', selectedJobsite)
 
-    axios.get('/api/timecard/recent', {
-      params: { jobsiteId: selectedJobsite._id }
-    })
-      .then((res) => {
-        setTimecards(res.data)
-        console.log(res.data)
-
+    axios
+      .get('/api/timecard/recent', {
+        params: { jobsiteId: selectedJobsite._id },
       })
-  }, [selectedJobsite])
+      .then((res) => {
+        setTimecards(res.data);
+        console.log(res.data);
+      });
+  }, [selectedJobsite]);
 
   const handleSearch = () => {
     // axios.get
-  }
+  };
 
   return (
     <Grid container spacing={2}>
@@ -85,16 +85,15 @@ const OLDTimecardList = () => {
             <JobsiteCard jobsite={selectedJobsite} isSelectable={false} />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant='h5'>
+            <Typography variant="h5">
               Timecards for {selectedJobsite.name}
             </Typography>
             <TimecardsByJobsiteId />
           </Grid>
         </Grid>
       </Grid>
-
     </Grid>
-  )
-}
+  );
+};
 
-export default OLDTimecardList
+export default OLDTimecardList;

@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';import {
-  BrowserRouter
-} from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 const theme = createTheme({
@@ -15,13 +14,13 @@ const theme = createTheme({
       main: '#1140cb',
     },
     secondary: {
-      main: '#000000',//black
+      main: '#000000', //black
     },
     tertiary: {
       main: '#cb1111',
     },
     grey: {
-      main: '#006400',//lime
+      main: '#006400', //lime
     },
   },
 });
@@ -30,12 +29,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-  <BrowserRouter>
-  <ThemeProvider theme={theme}>
-  <App/>
-  </ThemeProvider>
-  </BrowserRouter>
-  </Provider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </Provider>,
   // </React.StrictMode>
 );
 
