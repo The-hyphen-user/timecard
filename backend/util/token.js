@@ -1,7 +1,10 @@
 import crypto from 'crypto';
 
+/* eslint-disable arrow-body-style */
 const token = (length) => {
-  crypto.randomBytes(length).toString('hex');
-};
+  return crypto.randomBytes(length).toString('hex');
+}
+/* eslint-disable arrow-body-style */
+
 
 export default token;
