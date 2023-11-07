@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import Button from '@mui/material/Button';
 import EventNoteIcon from '@mui/icons-material/EventNote'; //timecard
 import FoundationIcon from '@mui/icons-material/Foundation'; //jobsite
@@ -44,7 +45,7 @@ const Sidebar = ({ drawerOpen }) => {
               <Button
                 sx={{ flex: 1, textAlign: 'left' }}
                 variant="contained"
-                // onClick={toggleDrawer}
+              // onClick={toggleDrawer}
               >
                 <MenuIcon sx={{ p: 1 }} />
                 <ListItemText primary="menu" />
@@ -52,7 +53,7 @@ const Sidebar = ({ drawerOpen }) => {
             ) : (
               <Button
                 variant="contained"
-                // onClick={toggleDrawer}
+              // onClick={toggleDrawer}
               >
                 <MenuIcon />
               </Button>
@@ -103,6 +104,22 @@ const Sidebar = ({ drawerOpen }) => {
             ) : (
               <Button variant="contained">
                 <DashboardIcon />
+              </Button>
+            )}
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/jobsite/create"
+            sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+          >
+            {drawerOpen ? (
+              <Button variant="contained">
+                <AddHomeWorkIcon sx={{ p: 1 }} />
+                <ListItemText primary="Create Jobsite" />
+              </Button>
+            ) : (
+              <Button variant="contained">
+                <AddHomeWorkIcon />
               </Button>
             )}
           </ListItem>
