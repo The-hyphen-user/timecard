@@ -72,6 +72,21 @@ const JobsiteSearchPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    switch (searchCategory) {
+      case 'recentToAll':
+        setJobsites(recentToMeJobsites)
+        break;
+      case 'recentToMe':
+        setJobsites(recentToAllJobsites)
+        break;
+      case 'searchResults':
+        setJobsites(searchedJobsites)
+        break;
+      default:
+    }
+  }, [recentToMeJobsites, recentToAllJobsites, searchedJobsites])
+
   const recentToAll = () => {
     searchCategory === 'recentToAll'
       ? setSearchCategory('')

@@ -68,22 +68,26 @@ export const jobsitesSlice = createSlice({
       );
     },
     updateJobSiteInAllArrays: (state, action) => {
-      const { itemId, newItem } = action.payload;
+      const { updatedJobsite } = action.payload;
 
       // Replace item in searchedJobsites array
-      state.searchedJobsites = state.searchedJobsites.map((item) =>
-        item._id === itemId ? newItem : item,
+      state.searchedJobsites = state.searchedJobsites.map((jobsite) =>
+        updatedJobsite._id === jobsite._id ? updatedJobsite : jobsite,
       );
 
       // Replace item in recentJobsitesToMe array
-      state.recentJobsitesToMe = state.recentJobsitesToMe.map((item) =>
-        item._id === itemId ? newItem : item,
+      state.recentJobsitesToMe = state.recentJobsitesToMe.map((jobsite) =>
+        updatedJobsite._id === jobsite._id ? updatedJobsite : jobsite,
       );
 
       // Replace item in recentJobsitesToAll array
-      state.recentJobsitesToAll = state.recentJobsitesToAll.map((item) =>
-        item._id === itemId ? newItem : item,
+      state.recentJobsitesToAll = state.recentJobsitesToAll.map((jobsite) =>
+        updatedJobsite._id === jobsite._id ? updatedJobsite : jobsite,
       );
+
+      if (state.selectedJobsite._id === updatedJobsite._id) {
+        state.selectedJobsite = updatedJobsite
+      }
     },
   },
 });
