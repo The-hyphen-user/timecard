@@ -6,7 +6,8 @@
   "author": "<pet22v20@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \" cd client && yarn start\" \" cd backend && yarn dev\""
+    "dev": "concurrently \" cd client && yarn start\" \" cd backend && yarn dev\"",
+    "install": "concurrently \" cd client && yarn\" \" cd backend && yarn\""
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
