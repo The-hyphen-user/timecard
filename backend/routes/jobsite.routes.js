@@ -26,20 +26,27 @@ router.get('/all', isAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/search', async (req, res) => {
+router.get('/search', async (req, res) => {// dates go into timecard not jobsite
   // taken out for testing: isAuthenticated,
   try {
-    const { searchTerm, searchQuantity } = req.query;
+    const { searchTerm, searchQuantity, startDate, endDate } = req.query;
+    const quantity = searchQuantity || 10;
+    console.log('dates', startDate, endDate)
     const query = {
       $or: [
         { name: { $regex: searchTerm, $options: 'i' } },
         { description: { $regex: searchTerm, $options: 'i' } },
       ],
     };
-    console.log('query', searchTerm);
-    console.log('type', typeof searchTerm);
+    if (startDate && endDate) {
+      query.lastWorked = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+    console.log('search dates:', startDate, endDate)
     const jobsites = await Jobsite.find(query).limit(
-      parseInt(searchQuantity, 10),
+      parseInt(quantity, 10),
     );
     console.log('jobsites', jobsites);
     res.json({ jobsites });

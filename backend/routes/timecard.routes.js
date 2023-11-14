@@ -35,16 +35,25 @@ router.get('/search/jobsite', isAuthenticated, async (req, res) => {
 
 router.get('/search', isAuthenticated, async (req, res) => {
   try {
-    const { searchTerm } = req.query;
+    const { searchTerm, startDate, endDate } = req.query;
     const userId = req.user._id;
+    console.log(searchTerm)
     const query = {
-      $or: [
-        { name: { $regex: searchTerm, $options: 'i' } },
+      user: userId
+    }
+    if (searchTerm) {
+      query.$or = [
         { description: { $regex: searchTerm, $options: 'i' } },
-      ],
-      user: userId,
-    };
+      ];
+    }
+
+
+    // if (startDate && endDate) {
+    //   query.startDate = { $gte: new Date(startDate) };
+    //   query.endDate = { $lte: new Date(endDate) };
+    // }
     const timecards = await Timecard.find(query).limit(20);
+    console.log('timecards', timecards)
     res.json({ timecards });
   } catch (error) {
     console.log(error);
