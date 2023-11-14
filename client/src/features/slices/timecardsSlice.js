@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   recentTimecards: [],
   jobsiteTimecards: [],
-  searchecTimecards: [],
+  searchedTimecards: [],
 };
 /*
 jobsiteTimecards: [
@@ -47,7 +47,7 @@ export const timecardsSlice = createSlice({
       state.jobsiteTimecards[jobsiteIndex].timecards.push(timecard);
     },
     setSearchedTimecards: (state, action) => {
-      state.searchecTimecards = action.payload;
+      state.searchedTimecards = action.payload;
     },
   },
 });
