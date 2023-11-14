@@ -36,10 +36,10 @@ function App() {
     <div className="App">
       {user ? (
         <Grid container spacing={1}>
-          <Grid item xs={2} md={2}>
+          <Grid item xs={2} sm={2} md={3} lg={3}>
             <SideBar drawerOpen={drawerOpen} />
           </Grid>
-          <Grid item xs={10} md={8}>
+          <Grid item xs={10} sm={10} md={9} lg={8}>
             <Container maxWidth="lg">
               <Routes>
                 <Route path="login" element={<Login />} />
@@ -72,7 +72,7 @@ function App() {
             </Container>
           </Grid>
 
-          <Grid item xs={0} md={2}></Grid>
+          <Grid item xs={0} sm={0} md={0} lg={1}></Grid>
         </Grid>
       ) : (
         <Container>
