@@ -9,6 +9,7 @@
     "dev": "concurrently \" cd client && yarn start\" \" cd backend && yarn dev\""
   },
   "dependencies": {
+    "babel-eslint": "^10.1.0",
     "concurrently": "^7.6.0"
   },
   "devDependencies": {
