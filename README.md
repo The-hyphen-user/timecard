@@ -8,11 +8,11 @@ Fast Task Timecards is your go-to for hassle-free time tracking, making work hou
 
 [Installation](https://github.com/The-hyphen-user/timecard#Installation)  
 [Tech Stack](https://github.com/The-hyphen-user/timecard#Tech-Stack)  
-[How its made](https://github.com/The-hyphen-user/timecard#How-its-made-🔨)  
+[How its made](https://github.com/The-hyphen-user/timecard#How-its-made-)  
 [Technologies](https://github.com/The-hyphen-user/timecard#New-Technologies-)  
-[Lessons Learned](https://github.com/The-hyphen-user/timecard#Lessons-Learned)  
-[Minor improvements ](https://github.com/The-hyphen-user/timecard#Minor-things-that-could-be-improved)  
-[Major improvements](https://github.com/The-hyphen-user/timecard#Major-things-that-could-be-improved)
+[Lessons Learned](https://github.com/The-hyphen-user/timecard#Lessons-Learned-)  
+[Minor improvements ](https://github.com/The-hyphen-user/timecard#Minor-things-that-could-be-improved-)  
+[Major improvements](https://github.com/The-hyphen-user/timecard#Major-things-that-could-be-improved-)
 
 ## Installation
 
