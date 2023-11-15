@@ -1,6 +1,6 @@
 # 🕗 Fast Track Timecards: A Timecard App 🕔
 
-## Description
+<!-- ## Description -->
 
 Fast Task Timecards is your go-to for hassle-free time tracking, making work hours management a breeze. Ideal for any company that wants to log hours effortlessly from wherever, it's the ultimate tool for payroll folks.
 
