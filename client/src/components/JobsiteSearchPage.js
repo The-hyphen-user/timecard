@@ -35,7 +35,7 @@ const JobsiteSearchPage = () => {
   const dispatch = useDispatch();
   const [searchCategory, setSearchCategory] = useState('');
   const [jobsites, setJobsites] = useState([]);
-  const [searchRsults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [recentToMeResults, setrecentToMeResults] = useState([]);
   const [recentToAllResults, setrecentToAllResults] = useState([]);
 
