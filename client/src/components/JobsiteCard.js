@@ -46,6 +46,7 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
           totalHoursSoFar: jobsite.totalHoursSoFar,
           createDate: jobsite.createDate,
           lastWorked: jobsite.lastWorked,
+          imageURL: jobsite.imageURL,
         }),
       );
     }
@@ -64,6 +65,12 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
       sx={{ backgroundColor: isSelected ? 'lightblue' : '' }}
     >
       <CardActionArea onClick={isSelectable ? selectThisJobsite : null}>
+        <CardMedia
+          component="img"
+          height="240"
+          image={jobsite.imageURL ? `http://localhost:5000${jobsite.imageURL}` : 'http://localhost:5000/uploads/default.png'}
+          alt={jobsite.name}
+        />
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom align="left">
             {jobsite.name}

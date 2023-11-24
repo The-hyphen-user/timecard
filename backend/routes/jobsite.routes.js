@@ -1,4 +1,8 @@
 import express from 'express';
+import path from 'path'
+import fs from 'fs'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { v4 as uuidv4 } from 'uuid';
 import Timecard from '../models/timecard.js';
 import Jobsite from '../models/jobsite.js';
 import isAuthenticated from '../util/isAuthenticated.js';
@@ -6,12 +10,54 @@ import isAuthenticated from '../util/isAuthenticated.js';
 
 // route: /api/jobsite
 
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 const router = express.Router();
+
+
 
 router.get('/', isAuthenticated, async (req, res) => {
   try {
     const timecards = await Timecard.find({ user: req.user._id });
     res.json(timecards);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+router.post('/create', async (req, res) => {
+  // taken out for testing: isAuthenticated, isAdmin,
+  try {
+    if (!req.body.startDate) {
+      req.body.startDate = Date.now();
+    }
+    const jobsite = new Jobsite(req.body);
+
+    if (req.body.imageData) {
+      // Use uuid to generate a unique filename
+      const uniqueFilename = `${uuidv4()}.jpg`;
+
+      // Save the image file with the unique filename
+      const imagePath = path.join(__dirname, '../uploads', uniqueFilename);
+
+      fs.writeFileSync(imagePath, req.body.imageData, 'base64');
+
+      // Set the imageURL in the jobsite model
+      jobsite.imageURL = `/uploads/${uniqueFilename}`;
+    }
+
+    jobsite.lastWorked = req.body.startDate;
+
+    console.log('last worked', jobsite.lastWorked);
+    await jobsite.save().then((result) => {
+      res.json({ jobsite, id: result.id });
+    });
   } catch (error) {
     console.log(error);
   }
@@ -96,21 +142,5 @@ router.get('/recenttoall', async (req, res) => {
   }
 });
 
-router.post('/create', async (req, res) => {
-  // taken out for testing: isAuthenticated, isAdmin,
-  try {
-    if (!req.body.startDate) {
-      req.body.startDate = Date.now();
-    }
-    const jobsite = new Jobsite(req.body);
-    jobsite.lastWorked = req.body.startDate;
-    console.log('last worked', jobsite.lastWorked);
-    await jobsite.save().then((result) => {
-      res.json({ jobsite, id: result.id });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 export default router;

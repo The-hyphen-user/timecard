@@ -34,6 +34,7 @@ services:
       - ./server:/app
       - /app/node_modules
       - ./logs:/logs
+      - ./uploads:/app/uploads
     environment:
       - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
       - MAILGUN_API_KEY=$MAILGUN_API_KEY

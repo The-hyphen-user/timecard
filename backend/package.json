@@ -16,10 +16,13 @@
     "express-session": "^1.17.3",
     "mongodb": "^5.5.0",
     "mongoose": "^7.6.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
-    "styled-components": "^6.0.9"
+    "path": "^0.12.7",
+    "styled-components": "^6.0.9",
+    "uuid": "^9.0.1"
   }
 }

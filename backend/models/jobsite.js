@@ -39,6 +39,9 @@ const jobsiteSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  imageURL: {
+    type: String,
+  },
 });
 
 const Jobsite = mongoose.model('Jobsite', jobsiteSchema);

@@ -30,6 +30,7 @@ const initialState = {
     totalHoursSoFar: null,
     createDate: null,
     lastWorked: null,
+    imageURL: null,
   }, //jobsites.recentJobsitesToMe
 };
 
@@ -48,6 +49,15 @@ export const jobsitesSlice = createSlice({
     },
     setSelectedJobsite: (state, action) => {
       state.selectedJobsite = action.payload;
+    },
+    addRecentToMeIfNeeded: (state, action) => {
+      const { newRecentJobsite } = action.payload;
+
+      const exsists = state.recentJobsitesToMe.find(
+        (jobsite) => jobsite._id === newRecentJobsite._id)
+      if (!exsists) {
+        state.recentJobsitesToMe = [...state.recentJobsitesToMe, newRecentJobsite];
+      }
     },
     replaceInSearchedJobsites: (state, action) => {
       const { itemId, newItem } = action.payload;
@@ -97,6 +107,7 @@ export const {
   setRecentJobsitesToMe,
   setRecentJobsitesToAll,
   setSelectedJobsite,
+  addRecentToMeIfNeeded,
   replaceInSearchedJobsites,
   replaceInRecentJobsitesToMe,
   replaceInRecentJobsitesToAll,
