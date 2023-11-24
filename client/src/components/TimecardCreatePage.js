@@ -2,7 +2,7 @@ import { Button, Container, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState, } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { addTimecardToJobsiteId } from '../features/slices/timecardsSlice'
-import { updateJobSiteInAllArrays } from '../features/slices/jobsitesSlice'
+import { updateJobSiteInAllArrays, addRecentToMeIfNeeded } from '../features/slices/jobsitesSlice'
 import { FormControl, InputLabel, Select, MenuItem, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -69,6 +69,7 @@ const TimecardCreatePage = () => {
           console.log('res data:', res.data)
           setSubmittedTimecard(res.data.timecard)
           dispatch(addTimecardToJobsiteId({ jobsiteId: selectedJobsite._id, timecard: res.data.timecard }))//submittedTimecard
+          dispatch(addRecentToMeIfNeeded({ newRecentJobsite: selectedJobsite }))
           dispatch(updateJobSiteInAllArrays({
             updatedJobsite: res.data.updatedJobsite
           }))
