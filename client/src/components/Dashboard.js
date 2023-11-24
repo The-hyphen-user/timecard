@@ -15,6 +15,7 @@ const Dashboard = () => {
   let navigate = useNavigate();
   const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
   const username = useSelector((state) => state.user.user.username);
+  const role = useSelector((state) => state.user.user.role)
   // const recentTimecards = useSelector((state) => state.recentTimecards.recentTimecards.recentTimecards);
   const [selectedButton, setSelectedButton] = React.useState(null);
   const [recentTimecards, setRecentTimecards] = useState([]);

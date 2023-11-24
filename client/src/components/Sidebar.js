@@ -13,8 +13,8 @@ import EventNoteIcon from '@mui/icons-material/EventNote'; //timecard
 import FoundationIcon from '@mui/icons-material/Foundation'; //jobsite
 
 const Sidebar = ({ drawerOpen }) => {
-  const user = useSelector((state) => state.user.user.user);
-  // const isAdmin = useSelector((state) => state.user.user.isAdmin);
+  const username = useSelector((state) => state.user.user.username);
+  const role = useSelector((state) => state.user.user.role)
 
   /*
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -107,25 +107,51 @@ const Sidebar = ({ drawerOpen }) => {
               </Button>
             )}
           </ListItem>
-          <ListItem
-            component={Link}
-            to="/jobsite/create"
-            sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
-          >
-            {drawerOpen ? (
-              <Button variant="contained">
-                <AddHomeWorkIcon sx={{ p: 1 }} />
-                <ListItemText primary="Create Jobsite" />
-              </Button>
-            ) : (
-              <Button variant="contained">
-                <AddHomeWorkIcon />
-              </Button>
-            )}
+          {role === 'admin' ?
+            <ListItem
+              component={Link}
+              to="/jobsite/create"
+              sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+            >
+              {drawerOpen ? (
+                <Button variant="contained">
+                  <AddHomeWorkIcon sx={{ p: 1 }} />
+                  <ListItemText primary="Create Jobsite v" />
+                </Button>
+              ) : (
+                <Button variant="contained">
+                  <AddHomeWorkIcon />
+                </Button>
+              )}
+            </ListItem> :
+            <ListItem
+              component={Link}
+              to="/jobsite/create"
+              sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+            >
+              {drawerOpen ? (
+                <Button variant="contained">
+                  <AddHomeWorkIcon sx={{ p: 1 }} />
+                  <ListItemText primary="Create Jobsite X" />
+                </Button>
+              ) : (
+                <Button variant="contained">
+                  <AddHomeWorkIcon />
+                </Button>
+              )}
+            </ListItem>
+          }
+
+          <ListItem>
+            {'role: '}
+            {role ? <>{role}</> : <></>}
+            <br />
+            {'username: '}
+            {username ? <>{username}</> : <></>}
           </ListItem>
         </List>
       </Drawer>
-    </div>
+    </div >
   );
 };
 
