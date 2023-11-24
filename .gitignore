@@ -46,3 +46,8 @@ sketch
 *.env
 
 *data
+
+backend/uploads/*
+uploads/*
+
+!backend/uploads/default.png
