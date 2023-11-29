@@ -4,6 +4,7 @@ import {
   CardContent,
   CardHeader,
   CardActions,
+  CardMedia,
   Button,
   Typography,
   Grid,
@@ -11,7 +12,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const TimecardCard = ({ timecard, jobsiteName }) => {
+const TimecardCard = ({ timecard, jobsiteName, hasPicture, jobsiteImageURL }) => {
   const formattedDate = new Date(timecard.date).toLocaleDateString();
   const formattedStartTime = new Date(timecard.startTime).toLocaleTimeString(
     [],
@@ -25,6 +26,14 @@ const TimecardCard = ({ timecard, jobsiteName }) => {
   return (
     <div>
       <Card variant="outlined" style={{ margin: '6px', padding: '6px' }}>
+        {hasPicture ?
+          <CardMedia
+            component="img"
+            height="240"
+            image={jobsiteImageURL ? `http://localhost:5000${jobsiteImageURL}` : 'http://localhost:5000/uploads/default.png'}
+            alt={jobsiteName}
+          />
+          : <></>}
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom align="left">
             {jobsiteName ? jobsiteName : ''}
