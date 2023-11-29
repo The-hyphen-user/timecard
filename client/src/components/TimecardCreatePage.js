@@ -23,6 +23,7 @@ const TimecardCreatePage = () => {
   const [selectedHours, setSelectedHours] = useState(8)
   const [startTime, setStartTime] = useState(dayjs().startOf('date').add(8, 'hour'))
   const [endTime, setEndTime] = useState(dayjs().startOf('date').add(16, 'hour').add(30, 'minute'))
+  const [lastEditedTime, setLastEditedTime] = useState('start')
   const [submittedTimecard, setSubmittedTimecard] = useState(null)
   const [submittedTimecardId, setSubmittedTimecardId] = useState('')
   const [error, setError] = useState('')
@@ -85,11 +86,52 @@ const TimecardCreatePage = () => {
     setError('')
   }
 
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+
+    setStartTime(
+      startTime
+      .set('year', selectedDate.year())
+      .set('month', selectedDate.month())
+      .set('date', selectedDate.date())
+    )
+    setEndTime(
+      endTime
+      .set('year', selectedDate.year())
+      .set('month', selectedDate.month())
+      .set('date', selectedDate.date())
+    )
   };
   const resetSubmittedTimecard = () => {
     setSubmittedTimecard(null)
+  }
+
+  const handleChangeSelectedHours = (hours) => {
+    console.log('newtime or date:', hours)
+    setSelectedHours(hours)
+    if (lastEditedTime === 'start'){
+      setEndTime(startTime.add(hours, 'hour'))
+    } else if (lastEditedTime === 'end'){
+      setStartTime(endTime.subtract(hours, 'hour'))
+      if (!selectedDate.isSame(startTime, 'day')){
+        setSelectedDate(startTime)
+      }
+    }
+  }
+  const handleChangeStartTime = (newTime) => {
+    console.log('newtime or date:', newTime)
+    setLastEditedTime('start')
+    setStartTime(newTime)
+      setEndTime(newTime.add(selectedHours, 'hour'))
+  }
+  const handleChangeEndTime = (newTime) => {
+    setLastEditedTime('end')
+    console.log('newtime or date:', newTime)
+    setEndTime(newTime)
+    setStartTime(newTime.subtract(selectedHours, 'hour'))
+    if (!selectedDate.isSame(startTime, 'day')){
+      setSelectedDate(startTime)
+    }
   }
 
   return (
@@ -115,7 +157,8 @@ const TimecardCreatePage = () => {
                 <FormControl fullWidth>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label="Date"
-                      value={selectedDate} onChange={(e) => setSelectedDate(e)} /> {/*defaultValue={today}*/}
+                      value={selectedDate} 
+                      onChange={(newDate) => handleDateChange(newDate)} /> {/*defaultValue={today}*/}
                   </LocalizationProvider>
                 </FormControl>
               </Grid>
@@ -152,7 +195,7 @@ const TimecardCreatePage = () => {
                     }}
                     sx={{}}
                     value={selectedHours}
-                    onChange={(e) => setSelectedHours(e.target.value)}
+                    onChange={(e) => handleChangeSelectedHours(e.target.value)}
                   />
                 </FormControl>
               </Grid>
@@ -162,14 +205,14 @@ const TimecardCreatePage = () => {
                     <TimePicker
                       label='start time'
                       value={startTime}
-                      onChange={(newTime) => setStartTime(newTime)}
+                      onChange={(newTime) => handleChangeStartTime(newTime)}
                     />
                     <br />
 
                     <TimePicker
                       label='end time'
                       value={endTime}
-                      onChange={(newTime) => setEndTime(newTime)}
+                      onChange={(newTime) => handleChangeEndTime(newTime)}
                     />
                   </LocalizationProvider>
                 </FormControl>
