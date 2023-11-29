@@ -57,7 +57,7 @@ const TimecardSearchPage = () => {
   };
   return (<div style={{ padding: '20px' }}>
     <Typography variant="h4" component="h1" align="center" gutterBottom>
-      Jobsite Search
+      Timecard Search
     </Typography>
     <TextField label="Search Jobsite" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }} />
     <Grid container spacing={2} alignItems="center" justifyContent="center">
