@@ -22,10 +22,12 @@ import { DateRange } from 'react-date-range';
 
 const TimecardSearchPage = () => {
   const dispatch = useDispatch();
+  const [timecards, setTimecards] = useState('')
   const [searchTerm, setSearchTerm] = useState('');
   const searchedTimecards = useSelector(
     (state) => state.timecards.searchedTimecards,
   );
+  const recentTimecards = useSelector((state) => state.timecards.recentTimecards)
   const [searchQuantity, setSearchQuantity] = useState(5);
   const [datePickerViewable, setDatePickerViewable] = useState(true)
   const [dates, setDates] = useState([
@@ -53,11 +55,16 @@ const TimecardSearchPage = () => {
       .then((res) => {
         console.log('responce:', res)
         dispatch(setSearchedTimecards(res.data.timecards));
+        setTimecards(searchedTimecards)
       });
   };
+
+  const handleRecentDisplay = () => {
+    setTimecards(recentTimecards)
+  }
   return (<div style={{ padding: '20px' }}>
     <Typography variant="h4" component="h1" align="center" gutterBottom>
-      Timecard Search
+      Timecard Search⭕
     </Typography>
     <TextField label="Search Jobsite" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }} />
     <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -69,7 +76,9 @@ const TimecardSearchPage = () => {
         </Button>
       </Grid>
       <Grid item>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary"
+        onClick={handleRecentDisplay}
+        >
           Recent
         </Button>
       </Grid>
@@ -91,9 +100,9 @@ const TimecardSearchPage = () => {
         padding: '10px', // Optional: Add padding inside the border
       }}
     />
-    } {searchedTimecards &&
+    } {timecards &&
       <Grid container spacing={2}>
-        {searchedTimecards.map((timecard) => (
+        {timecards.map((timecard) => (
           <Grid item xs={12} md={6} lg={4} key={timecard._id}>
             <Paper style={{ padding: '20px', cursor: 'pointer' }}>
               <TimecardCard
@@ -112,3 +121,23 @@ const TimecardSearchPage = () => {
 };
 
 export default TimecardSearchPage;
+
+
+/* 
+{searchedTimecards &&
+      <Grid container spacing={2}>
+        {searchedTimecards.map((timecard) => (
+          <Grid item xs={12} md={6} lg={4} key={timecard._id}>
+            <Paper style={{ padding: '20px', cursor: 'pointer' }}>
+              <TimecardCard
+                key={timecard._id}
+                timecard={timecard}
+                isLinkable={false}
+                isSelectable={false}
+              />
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    }
+*/
