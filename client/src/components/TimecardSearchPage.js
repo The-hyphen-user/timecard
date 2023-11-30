@@ -108,7 +108,8 @@ const TimecardSearchPage = () => {
               <TimecardCard
                 key={timecard._id}
                 timecard={timecard}
-                isLinkable={false}
+                jobsite={timecard.jobsite ? timecard.jobsite : 'Unknown Jobsite'}
+                isLinkable={true}
                 isSelectable={false}
               />
             </Paper>

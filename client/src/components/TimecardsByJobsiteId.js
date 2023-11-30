@@ -53,7 +53,7 @@ const TimecardsByJobsiteId = () => {
   return (
     <div>
       {timecards.map((timecard) => (
-        <TimecardCard key={timecard._id} timecard={timecard} jobsiteName={selectedJobsite.name} />
+        <TimecardCard key={timecard._id} timecard={timecard} jobsiteName={selectedJobsite.name} isLinkable={false} />
       ))}
     </div>
   )

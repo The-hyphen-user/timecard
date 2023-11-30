@@ -11,7 +11,8 @@ router.get('/recent', isAuthenticated, async (req, res) => {
   try {
     const timecards = await Timecard.find({ user: req.user._id })
       .sort({ createdAt: -1 })
-      .limit(12);
+      .limit(12)
+      .populate('jobsite');
     res.json(timecards);
   } catch (error) {
     console.log(error);
@@ -52,7 +53,10 @@ router.get('/search', isAuthenticated, async (req, res) => {
     //   query.startDate = { $gte: new Date(startDate) };
     //   query.endDate = { $lte: new Date(endDate) };
     // }
-    const timecards = await Timecard.find(query).limit(20);
+    const timecards = await Timecard
+    .find(query)
+    .limit(20)
+    .populate('jobsite');
     console.log('timecards', timecards)
     res.json({ timecards });
   } catch (error) {
