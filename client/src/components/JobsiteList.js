@@ -16,8 +16,11 @@ import {
 import JobsiteCard from './JobsiteCard';
 import axios from 'axios';
 import { DateRange } from 'react-date-range';
+import { useSelector, useDispatch } from 'react-redux';
+import {setSearchedJobsites } from '../features/slices/jobsitesSlice'
 
 const JobsiteList = () => {
+  const dispatch = useDispatch();
   const [jobsites, setJobsites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchQuantity, setSearchQuantity] = useState(5);
@@ -30,6 +33,12 @@ const JobsiteList = () => {
       key: 'selection'
     }
   ]);
+  const searchedJobsites = useSelector((state) => state.jobsites.searchedJobsites)
+  const recentJobsitesToMe = useSelector((state) => state.jobsites.recentJobsitesToMe)
+  const recentJobsitesToAll = useSelector((state) => state.jobsites.recentJobsitesToAll)
+  const recentToMe = () => {
+    
+  }
   useEffect(() => {
     if (jobsites.length === 0) {
       axios
@@ -44,18 +53,7 @@ const JobsiteList = () => {
         });
     }
   }, []);
-  const handleRecent = () => {
-    axios
-      .get('/api/jobsite/recenttoall', {
-        params: {
-          searchQuantity: searchQuantity,
-        },
-      })
-      .then((res) => {
-        setJobsites(res.data);
-        console.log(res.data);
-      });
-  };
+
   const handleSearch = () => {
     console.log('startDate', dates[0].startDate,
       'endDate', dates[0].endDate,);
@@ -68,17 +66,27 @@ const JobsiteList = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        setSearchResults(res.data.jobsites);
+        dispatch(setSearchedJobsites(res.data.jobsites));
+        setJobsites(searchedJobsites)
+        console.log('search data',res.data.jobsites);
+        
       });
   };
+  const handleRecentToMeDisplay = () => {
+    setJobsites(recentJobsitesToMe)
+  }
+  const handleRecentToAllDisplay = () => {
+    setJobsites(recentJobsitesToAll)
+  }
   const dateFormat = 'yyyy-MM-dd';
   return (
     <div style={{ padding: '20px' }}>
       <Typography variant="h4" component="h1" align="center" gutterBottom>
-        Jobsite Search
+        Jobsite Search🥌
       </Typography>
-      <TextField label="Search Jobsite" fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }} />
+      <TextField label="Search Jobsite" fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }} 
+        value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item>
           <Button variant="contained" color="primary"
@@ -88,8 +96,17 @@ const JobsiteList = () => {
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="secondary">
-            Recent
+          <Button variant="contained" color="secondary"
+          onClick={handleRecentToMeDisplay}
+          >
+            Recent to me
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="secondary"
+          onClick={handleRecentToAllDisplay}
+          >
+            Recent to all
           </Button>
         </Grid>
         <Grid item>
@@ -112,14 +129,14 @@ const JobsiteList = () => {
       />
       } {/* Conditionally render DatePicker */}
       <Grid container spacing={2}>
-        {searchResults.map((jobsite) => (
+        {jobsites && jobsites.map((jobsite) => (
           <Grid item xs={12} md={6} lg={4} key={jobsite._id}>
             <Paper style={{ padding: '20px', cursor: 'pointer' }}>
               <JobsiteCard
                 key={jobsite._id}
                 jobsite={jobsite}
-                isLinkable={false}
-                isSelectable={false}
+                isLinkable={true}
+                isSelectable={true}
               />
             </Paper>
           </Grid>
