@@ -59,7 +59,7 @@ const Dashboard = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             {selectedJobsite ? 'selectedJobsite' : 'null is null'}
-            <JobsiteCard jobsite={selectedJobsite} isSelectable={false} />
+            <JobsiteCard jobsite={selectedJobsite} isSelectable={false} isLinkable={false} />
           </Grid>
           <Grid item xs={12}>
             <Typography variant='h5'>

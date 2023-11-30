@@ -50,13 +50,15 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
         }),
       );
     }
-    if (isLinkable) {
-      navigate(`/jobsite/${jobsite._id}`);
-    }
     console.log('this jobsite', jobsite);
     console.log('selected jobsite', selectedJobsite);
     console.log('id', jobsite._id);
   };
+
+  const handleAddTimecard = () => {
+    selectThisJobsite()
+      navigate('/dashboard');
+  }
 
   return (
     <Card
@@ -118,6 +120,9 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
               last worked: {formattedLastWorked}
             </Typography>
           )}
+          {isLinkable && <Button variant="contained" color="primary"
+          onClick={handleAddTimecard}
+          >Add Timecard</Button>}
         </CardContent>
       </CardActionArea>
     </Card>
