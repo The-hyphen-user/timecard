@@ -20,8 +20,9 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 dotenv.config();
 const LocalStrategy = passportLocal.Strategy;
 const PORT = process.env.API_LOCAL_PORT || 5000;
+const { LOCAL_IP_ADDRESS } = process.env
 const app = express();
-const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050'], credentials: true }
+const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', `http://${LOCAL_IP_ADDRESS}:3000`], credentials: true }
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));

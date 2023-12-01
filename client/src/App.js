@@ -23,7 +23,9 @@ import TimecardSearchPage from './components/TimecardSearchPage';
 
 function App() {
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = 'http://localhost:5000';
+  // axios.defaults.baseURL = 'http://localhost:5000';
+  const { LOCAL_IP_ADDRESS } = process.env
+  axios.defaults.baseURL = `http://${LOCAL_IP_ADDRESS}`;
 
   const user = useSelector((state) => state.user.user.username);
   const isMdOrAbove = useMediaQuery((theme) => theme.breakpoints.up('md'));
