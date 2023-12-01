@@ -1,4 +1,5 @@
 import express from 'express';
+// import mongoose from 'mongoose'
 import User from '../models/user.js';
 import UserActivation from '../models/userActivation.js';
 // import Recovery from "../models/recovery.js";
@@ -7,7 +8,7 @@ import Token from '../util/token.js';
 
 const router = express.Router();
 
-router.post('/create', async (req, res) => {
+router.post('/createactivation', async (req, res) => {
   try {
     let newToken;
     let tokenExists = true;
@@ -51,5 +52,28 @@ router.post('/create', async (req, res) => {
       .json({ message: 'Internal Server Error at activation key creation' });
   }
 });
+
+router.post('/activateuser', async (req, res) => {
+  try {
+    const { activationKey, email, username, password } = req.body
+    const newUserActivation = await UserActivation.findOne({ email, activationKey })
+
+    if (newUserActivation && username && password) {
+      const newUser = await User.create({
+        username,
+        password,
+        email,
+        role: 'user',
+      })
+
+      res.status(201).json({ newUser })
+    } else {
+      res.status(404).json({ message: "missing user activation, username or password" })
+    }
+  } catch (error) {
+    console.error('an error accured', error)
+    res.status(500).json({ error })
+  }
+})
 
 export default router;

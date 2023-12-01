@@ -4,6 +4,11 @@ import passportLocalMongoose from 'passport-local-mongoose';
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   role: {
     type: String,
     enum: ['admin', 'user'],

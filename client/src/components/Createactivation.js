@@ -10,7 +10,7 @@ const Createactivation = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('/api/activation/create', {
+      .post('/api/activation/createactivation', {
         email: email,
       })
       .then((res) => {

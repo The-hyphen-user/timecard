@@ -40,12 +40,17 @@ const Login = () => {
         navigate('/dashboard', { replace: true });
       })
       .catch((err) => {
+        alert('Login error: ' + err);
+
         console.log('loging error:', err);
         setError(err);
       });
   };
   const activation = () => {
     navigate('/createactivation', { replace: true });
+  }
+  const activateAccount = () => {
+    navigate('/newuser', { replace: true })
   }
   return (
     <Grid
@@ -103,6 +108,11 @@ const Login = () => {
       </Grid>
       <Grid item>
         <Button onClick={activation}>make user</Button>
+
+      </Grid>
+      <Grid item>
+        <Button onClick={activateAccount}>new user</Button>
+
       </Grid>
     </Grid>
   );
