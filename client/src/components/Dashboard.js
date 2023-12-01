@@ -10,7 +10,10 @@ import TimecardsByJobsiteId from './TimecardsByJobsiteId';
 
 import axios from "axios";
 
+
+
 const Dashboard = () => {
+
 
   let navigate = useNavigate();
   const selectedJobsite = useSelector((state) => state.jobsites.selectedJobsite)
@@ -48,13 +51,18 @@ const Dashboard = () => {
           Welcome, {username}!, dashboard
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={6} lg={4}>
+      <Grid item xs={12} >
+        <Typography variant="h4" style={{ marginTop: '20px' }}>
+          Current Screen Size: { }
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={12} md={6} lg={4}>
         <TimecardCreatePage />
       </Grid>
-      <Grid item xs={12} sm={6} lg={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4}>
         <JobsiteSearchPage />
       </Grid>
-      <Grid item xs={12} sm={6} lg={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4}>
         <Typography variant="h4">selected jobsite then timecards</Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>

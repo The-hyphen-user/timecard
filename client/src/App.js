@@ -12,6 +12,7 @@ import JobsitePage from './components/JobsitePage';
 import Welcome from './components/Welcome';
 import JobsiteCreatePage from './components/JobsiteCreatePage';
 import Createactivation from './components/Createactivation';
+import NewUser from './components/NewUser'
 
 import OLDTimecardList from './components/OldTimecardList';
 import TimecardPage from './components/TimecardPage';
@@ -31,15 +32,34 @@ function App() {
     setDrawerOpen(isMdOrAbove);
   }, [isMdOrAbove]);
 
+  const [isHidden, setIsHidden] = useState(false)
+
+  const toggleHidden = () => {
+    setIsHidden(!isHidden)
+  }
+
   const [drawerOpen, setDrawerOpen] = useState(true);
   return (
     <div className="App">
       {user ? (
         <Grid container spacing={1}>
-          <Grid item xs={2} sm={2} md={3} lg={3}>
-            <SideBar drawerOpen={drawerOpen} />
+          {/* <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
+                <SideBar drawerOpen={drawerOpen} isHidden={isHidden} toggleHidden={toggleHidden} />
+              </Grid> */}
+          <Grid item
+            xs={isHidden ? 1 : 3}
+            sm={isHidden ? 1 : 3}
+            md={isHidden ? 1 : 3}
+            lg={isHidden ? 1 : 2.5}
+            xl={isHidden ? 1 : 1}>
+            <SideBar drawerOpen={drawerOpen} isHidden={isHidden} toggleHidden={toggleHidden} />
           </Grid>
-          <Grid item xs={10} sm={10} md={9} lg={8}>
+          <Grid item
+            xs={isHidden ? 11 : 9}
+            sm={isHidden ? 11 : 9}
+            md={isHidden ? 11 : 9}
+            lg={isHidden ? 11 : 9.5}
+            xl={11}>
             <Container maxWidth="lg">
               <Routes>
                 <Route path="login" element={<Login />} />
@@ -72,11 +92,14 @@ function App() {
             </Container>
           </Grid>
 
-          <Grid item xs={0} sm={0} md={0} lg={1}></Grid>
+
+
+          <Grid item xs={0} sm={0} md={0} lg={0} xl={0}></Grid>
         </Grid>
       ) : (
         <Container>
           <Routes>
+            <Route path='newuser/:email/:activationKey' element={<NewUser />} />
             <Route path="/" element={<Login />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="signup" element={<Signup />} />
