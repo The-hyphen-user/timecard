@@ -4,6 +4,7 @@ import User from '../models/user.js';
 import UserActivation from '../models/userActivation.js';
 // import Recovery from "../models/recovery.js";
 import Token from '../util/token.js';
+import sendEmail from '../util/elasticEmail.js';
 // route: /api/activation
 
 const router = express.Router();
@@ -38,6 +39,8 @@ router.post('/createactivation', async (req, res) => {
       activationKey: newToken,
     });
     await userActivation.save();
+    const activationLink = `http://localhost:3000/signup/${newToken}`//  change me
+    await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
     console.log('userActivation:', userActivation);
     res
       .status(201)
