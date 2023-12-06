@@ -90,6 +90,9 @@ router.post('/login', passport.authenticate('local'), async (req, res) => {
   })
     .sort({ lastWorked: -1 })
     .limit(15);
+  if (recentJobsites === null) {
+    console.log('nothing recent')
+  }
   res.json({
     message: 'Login successful',
     user: req.user,

@@ -1,54 +1,54 @@
 version: '3'
+
 services:
+  client:
+    build:
+      context: ./client
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - api
 
   nginx:
     build: ./nginx
     restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      # - $NGINX_EXTERNAL_PORT:$NGINX_INTERNAL_PORT #production port
       - "3050:3050"
+    networks:
+      - app-network
+    depends_on:
+      - client
 
   mongo:
     image: mongo:latest
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=your_username
-      - MONGO_INITDB_ROOT_PASSWORD=your_password
-      - MONGODB_CONNECTION_URL=mongodb://your_username:your_password@ocalhost:27017/your_database_name
+      - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
     volumes:
       - ./data:/data/db
 
-
-
-  
   api:
     build: ./backend
     restart: unless-stopped
     env_file: ./.env
-    ports: 
-      #- $API_LOCAL_PORT:$API_DOCKER_URL #production port
+    ports:
       - "5000:5000"
-      #port that react needs to send requests: port that express needs to listen on
     volumes:
-      - ./server:/app
-      - /app/node_modules
+      - ./backend:/backend
+      - /backend/node_modules
       - ./logs:/logs
-      - ./uploads:/app/uploads
     environment:
       - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
-      - MAILGUN_API_KEY=$MAILGUN_API_KEY
+      - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
+    networks:
+      - app-network
 
-
-  client:
-    build:
-      context: ./client
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-
-volumes:
-  db:
+networks:
+  app-network:
+    driver: bridge      

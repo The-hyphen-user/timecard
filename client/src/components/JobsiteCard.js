@@ -72,8 +72,8 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
         <CardMedia
           component="img"
           height="240"
-          // image={jobsite.imageURL ? `http://localhost:5000${jobsite.imageURL}` : 'http://localhost:5000/uploads/default.png'} 
-          image={jobsite.imageURL ? `http://${LOCAL_IP_ADDRESS}${jobsite.imageURL}` : `http://${LOCAL_IP_ADDRESS}:5000/uploads/default.png`}
+          image={jobsite.imageURL ? `http://localhost:5000${jobsite.imageURL}` : 'http://localhost:5000/uploads/default.png'}
+          // image={jobsite.imageURL ? `http://${LOCAL_IP_ADDRESS}${jobsite.imageURL}` : `http://${LOCAL_IP_ADDRESS}:5000/uploads/default.png`}
           alt={jobsite.name}
         />
         <CardContent>

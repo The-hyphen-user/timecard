@@ -4,6 +4,7 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import User from './models/user.js';
 import routes from './routes/index.js';
 import path from 'path';
@@ -22,7 +23,7 @@ const LocalStrategy = passportLocal.Strategy;
 const PORT = process.env.API_LOCAL_PORT || 5000;
 const { LOCAL_IP_ADDRESS } = process.env
 const app = express();
-const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', `http://${LOCAL_IP_ADDRESS}:3000`], credentials: true }
+const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', 'http://localhost:5000'], credentials: true }
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
@@ -41,6 +42,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 // Middleware function to log requests
 app.use((req, res, next) => {
     // Log the request URL and method
