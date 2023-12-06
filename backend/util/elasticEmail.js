@@ -1,6 +1,6 @@
 import axios from 'axios'
 import dotenv from 'dotenv'
-import Email from '../models/Email.js'
+import Email from '../models/email.js'
 
 
 dotenv.config({ path: '../.env' });
