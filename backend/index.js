@@ -71,7 +71,7 @@ app.use('/uploads', (req, res, next) => {
     console.log(`🎄[${new Date().toISOString()}] Serving static file: ${req.url}`);
     next();
 });
-app.use('/api', routes);
+app.use('/', routes);
 
 
 app.use('/', (req, res) => {

@@ -1,7 +1,7 @@
 FROM node:16-alpine
 
-WORKDIR /backend
+WORKDIR /app
 COPY package.json .
-RUN yarn install --production  # Install only production dependencies
+RUN yarn
 COPY . .
 CMD ["yarn", "start"]
