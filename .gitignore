@@ -51,3 +51,6 @@ backend/uploads/*
 uploads/*
 
 !backend/uploads/default.png
+test2.js
+test.js
+old docker-compose.yaml
