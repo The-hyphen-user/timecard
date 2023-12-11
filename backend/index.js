@@ -23,7 +23,7 @@ const LocalStrategy = passportLocal.Strategy;
 const PORT = process.env.API_LOCAL_PORT || 5000;
 const { HOST_IP } = process.env
 const app = express();
-const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', 'http://localhost:5000', `${HOST_IP}:3050`], credentials: true }
+const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', 'http://localhost:5000', `http://${HOST_IP}:3050`], credentials: true }
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
@@ -71,7 +71,7 @@ app.use('/uploads', (req, res, next) => {
     console.log(`🎄[${new Date().toISOString()}] Serving static file: ${req.url}`);
     next();
 });
-app.use('/', routes);
+app.use('/api', routes);
 
 
 app.use('/', (req, res) => {

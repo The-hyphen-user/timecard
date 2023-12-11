@@ -1,42 +1,82 @@
-version: '3'
-services:
+# version: '3'
+# services:
 
-  mongo:
-    image: mongo:latest
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
+#   mongo:
+#     image: mongo:latest
+#     restart: unless-stopped
+#     ports:
+#       - "27017:27017"
+#     environment:
+#       - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
       
-  nginx:
-    depends_on:
-      - api
-      - client
-    build: ./nginx
-    restart: unless-stopped
-    ports:
-      - "3050:3050"
+#   nginx:
+#     image: nginx
+#     depends_on:
+#       - api
+#       - client
+#     build: ./nginx
+#     restart: unless-stopped
+#     ports:
+#       - "3050:3050"
 
-  api:
-    build: ./backend
-    restart: unless-stopped
-    env_file: ./.env
-    ports:
-      - "5000:5000"
-    volumes:
-      - /app/node_modules
-      - ./backend:/app
-    environment:
-      - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
-      - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
+#   api:
+#     build: ./backend
+#     restart: unless-stopped
+#     env_file: ./.env
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - /app/node_modules
+#       - ./backend:/app
+#     environment:
+#       - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
+#       - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
+
+#   client:
+#     build:
+#       context: ./client
+#     restart: unless-stopped
+#     ports:
+#       - "3000:80"
+
+version: '3'
+
+services:
 
   client:
     build:
       context: ./client
-    restart: unless-stopped
     ports:
-      - "3000:3000"
-    volumes:
-      - /app/node_modules
-      - ./client:/app
+      - 3000:3000
+    networks:
+      - timecard
+
+  api:
+    build:
+      context: ./backend
+    ports: 
+      - '5000:5000'
+    networks:
+      - timecard
+    environment:
+      - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
+      - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
+      - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
+
+  nginx:
+    image: nginx
+    build: ./nginx
+    ports:
+      - 3050:3050
+    depends_on:
+      - api
+      - client
+    networks:
+      - timecard
+
+networks:
+  timecard:
+    driver: bridge
+
+
+    

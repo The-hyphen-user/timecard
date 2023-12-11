@@ -54,3 +54,4 @@ uploads/*
 test2.js
 test.js
 old docker-compose.yaml
+*build
