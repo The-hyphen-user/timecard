@@ -50,6 +50,7 @@ services:
       - 3000:3000
     networks:
       - timecard
+    container_name: my-client-container
 
   api:
     build:
@@ -62,6 +63,7 @@ services:
       - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
       - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
       - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
+    container_name: my-api-container
 
   nginx:
     image: nginx
@@ -73,6 +75,7 @@ services:
       - client
     networks:
       - timecard
+    container_name: my-nginx-container
 
 networks:
   timecard:

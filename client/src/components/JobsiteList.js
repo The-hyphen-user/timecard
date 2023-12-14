@@ -9,7 +9,6 @@ import {
   Button,
   Grid,
   TextField,
-  Container,
   Typography,
   Paper,
 } from '@mui/material';
@@ -17,7 +16,7 @@ import JobsiteCard from './JobsiteCard';
 import axios from 'axios';
 import { DateRange } from 'react-date-range';
 import { useSelector, useDispatch } from 'react-redux';
-import {setSearchedJobsites } from '../features/slices/jobsitesSlice'
+import { setSearchedJobsites } from '../features/slices/jobsitesSlice'
 
 const JobsiteList = () => {
   const dispatch = useDispatch();
@@ -37,7 +36,7 @@ const JobsiteList = () => {
   const recentJobsitesToMe = useSelector((state) => state.jobsites.recentJobsitesToMe)
   const recentJobsitesToAll = useSelector((state) => state.jobsites.recentJobsitesToAll)
   const recentToMe = () => {
-    
+
   }
   useEffect(() => {
     if (jobsites.length === 0) {
@@ -68,8 +67,8 @@ const JobsiteList = () => {
       .then((res) => {
         dispatch(setSearchedJobsites(res.data.jobsites));
         setJobsites(searchedJobsites)
-        console.log('search data',res.data.jobsites);
-        
+        console.log('search data', res.data.jobsites);
+
       });
   };
   const handleRecentToMeDisplay = () => {
@@ -84,7 +83,7 @@ const JobsiteList = () => {
       <Typography variant="h4" component="h1" align="center" gutterBottom>
         Jobsite Search🥌
       </Typography>
-      <TextField label="Search Jobsite" fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }} 
+      <TextField label="Search Jobsite" fullWidth variant="outlined" margin="dense" sx={{ maxWidth: '400px', paddingBottom: '10px' }}
         value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
       />
       <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -97,14 +96,14 @@ const JobsiteList = () => {
         </Grid>
         <Grid item>
           <Button variant="contained" color="secondary"
-          onClick={handleRecentToMeDisplay}
+            onClick={handleRecentToMeDisplay}
           >
             Recent to me
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="secondary"
-          onClick={handleRecentToAllDisplay}
+            onClick={handleRecentToAllDisplay}
           >
             Recent to all
           </Button>

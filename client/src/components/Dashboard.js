@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, Grid, Paper, Typography, Container } from '@mui/material';
 
@@ -8,7 +8,7 @@ import JobsiteSearchPage from './JobsiteSearchPage'
 import JobsiteCard from './JobsiteCard';
 import TimecardsByJobsiteId from './TimecardsByJobsiteId';
 
-import axios from "axios";
+// import axios from "axios";
 
 
 
@@ -21,27 +21,18 @@ const Dashboard = () => {
   const role = useSelector((state) => state.user.user.role)
   // const recentTimecards = useSelector((state) => state.recentTimecards.recentTimecards.recentTimecards);
   const [selectedButton, setSelectedButton] = React.useState(null);
-  const [recentTimecards, setRecentTimecards] = useState([]);
+  // const [recentTimecards, setRecentTimecards] = useState([]);
 
-  const handleButtonChange = (event, newSelectedButton) => {
-    setSelectedButton(newSelectedButton);
-  };
-  const handleJobsite = () => {
-    navigate('/jobsites', { replace: true });
-  }
-  const handleTimecardSearch = () => {
-    navigate('/timecardsearch', { replace: true });
-  }
-  const ExampleTimecardData = {
-    id: 1,
-    userId: 123,
-    jobSiteName: 'Twelth Street',
-    date: '2023-10-21',
-    hours: 8,
-    tasks: 'Completed tasks A, B, and C',
-    recorded: true,
-    username: 'John Doe'
-  };
+  // const handleButtonChange = (event, newSelectedButton) => {
+  //   setSelectedButton(newSelectedButton);
+  // };
+  // const handleJobsite = () => {
+  //   navigate('/jobsites', { replace: true });
+  // }
+  // const handleTimecardSearch = () => {
+  //   navigate('/timecardsearch', { replace: true });
+  // }
+
 
   return (
     <Grid container spacing={2} >
