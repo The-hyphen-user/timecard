@@ -1,4 +1,5 @@
 import express from 'express';
+import dotenv from 'dotenv'
 // import mongoose from 'mongoose'
 import User from '../models/user.js';
 import UserActivation from '../models/userActivation.js';
@@ -8,6 +9,11 @@ import sendEmail from '../util/elasticEmail.js';
 // route: /api/activation
 
 const router = express.Router();
+
+dotenv.config({ path: '../.env' });
+
+const { ENV, PROD_HOST_IP } = process.env
+
 
 router.post('/createactivation', async (req, res) => {
   try {
@@ -39,8 +45,14 @@ router.post('/createactivation', async (req, res) => {
       activationKey: newToken,
     });
     await userActivation.save();
+    const prodActivationLink = `http://${PROD_HOST_IP}:3000/signup/${newToken}`
     const activationLink = `http://localhost:3000/signup/${newToken}`//  change me
-    await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
+    if (ENV === 'prod') {
+      await sendEmail({ recipientEmail: email, content: `please go to: ${prodActivationLink} to activate your account` })
+    } else {
+      await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
+    }
+    // await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
     console.log('userActivation:', userActivation);
     res
       .status(201)

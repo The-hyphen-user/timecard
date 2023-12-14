@@ -10,6 +10,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedJobsite } from '../features/slices/jobsitesSlice';
+import dotenv from 'dotenv'
+
+dotenv.config({ path: '../.env' });
+
+const { ENV, PROD_HOST_IP } = process.env
+
+const IP = ENV === 'prod' ? PROD_HOST_IP : 'localhost'
+
+
 
 // const JobsiteCard = ({ _id, name, address, city, startDate, description, totalHoursSoFar, createDate, lastWorked, isSelectable, isLinkable }) => {
 const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
@@ -71,7 +80,9 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
         <CardMedia
           component="img"
           height="240"
-          image={jobsite.imageURL ? `http://localhost:5000${jobsite.imageURL}` : 'http://localhost:5000/uploads/default.png'}
+
+          image={jobsite.imageURL ? `http://${IP}:5000${jobsite.imageURL}` : `http://${IP}:5000/uploads/default.png`}
+          // image={jobsite.imageURL ? `http://localhost:5000${jobsite.imageURL}` : 'http://localhost:5000/uploads/default.png'}
           // image={jobsite.imageURL ? `http://${LOCAL_IP_ADDRESS}${jobsite.imageURL}` : `http://${LOCAL_IP_ADDRESS}:5000/uploads/default.png`}
           alt={jobsite.name}
         />

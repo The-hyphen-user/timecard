@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import dotenv from 'dotenv'
 import SideBar from './components/Sidebar';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -23,11 +24,16 @@ import TimecardSearchPage from './components/TimecardSearchPage';
 // import Recovery from '../../backend/models/Recovery';
 // <Route path="recover/:recoverId" element={<Recovery} />
 
+dotenv.config({ path: '../.env' });
+
+const { ENV, PROD_HOST_IP } = process.env
+
 function App() {
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = 'http://localhost:3050';
-  // const { HOST_IP } = process.env
-  // axios.defaults.baseURL = `http://${HOST_IP}:3050`;
+  axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3050';
+  // axios.defaults.baseURL = 'http://localhost:3050';
+  // const { PROD_HOST_IP } = process.env
+  // axios.defaults.baseURL = `http://${PROD_HOST_IP}:3050`;
 
   const user = useSelector((state) => state.user.user.username);
   const isMdOrAbove = useMediaQuery((theme) => theme.breakpoints.up('md'));
