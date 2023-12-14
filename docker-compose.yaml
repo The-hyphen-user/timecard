@@ -50,6 +50,9 @@ services:
       - 3000:3000
     networks:
       - timecard
+    environment:
+      - PROD_HOST_IP=$PROD_HOST_IP
+      - ENV=$ENV
     container_name: my-client-container
 
   api:
@@ -63,6 +66,8 @@ services:
       - SESSION_SECRET_KEY=$SESSION_SECRET_KEY
       - ELASTIC_EMAIL_API_KEY=$ELASTIC_EMAIL_API_KEY
       - MONGODB_CONNECTION_URL=$MONGODB_CONNECTION_URL
+      - PROD_HOST_IP=$PROD_HOST_IP
+      - ENV=$ENV
     container_name: my-api-container
 
   nginx:

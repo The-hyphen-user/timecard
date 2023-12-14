@@ -10,9 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedJobsite } from '../features/slices/jobsitesSlice';
-import dotenv from 'dotenv'
 
-dotenv.config({ path: '../.env' });
 
 const { ENV, PROD_HOST_IP } = process.env
 

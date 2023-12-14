@@ -2,7 +2,6 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import dotenv from 'dotenv'
 import SideBar from './components/Sidebar';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -24,7 +23,6 @@ import TimecardSearchPage from './components/TimecardSearchPage';
 // import Recovery from '../../backend/models/Recovery';
 // <Route path="recover/:recoverId" element={<Recovery} />
 
-dotenv.config({ path: '../.env' });
 
 const { ENV, PROD_HOST_IP } = process.env
 
