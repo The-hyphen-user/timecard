@@ -1,6 +1,7 @@
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import dayjs from 'dayjs';
+import { subWeeks, startOfDay, endOfDay } from 'date-fns';
 import 'dayjs/locale/en'; // Import desired locale for dayjs
 
 import React, { useEffect, useState } from 'react';
@@ -21,6 +22,8 @@ import { setSearchedTimecards } from '../features/slices/timecardsSlice';
 import { DateRange } from 'react-date-range';
 
 const TimecardSearchPage = () => {
+  const twoWeeksAgo = subWeeks(startOfDay(new Date()), 2);
+  const endOfToday = endOfDay(new Date());
   const dispatch = useDispatch();
   const [timecards, setTimecards] = useState('')
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,30 +35,34 @@ const TimecardSearchPage = () => {
   const [datePickerViewable, setDatePickerViewable] = useState(true)
   const [dates, setDates] = useState([
     {
-      startDate: null,
-      endDate: null,
+      startDate: twoWeeksAgo,
+      endDate: endOfToday,
       key: 'selection'
     }
   ]);
 
   const dateFormat = 'yyyy-MM-dd';
   const handleSearch = () => {
-    console.log('search time for timecards', searchTerm,
-      dates[0].startDate,
-      dates[0].endDate,
-    )
+    console.log('search time for timecards', searchTerm)
+
+    let startDate = null
+    let endDate = null
+    if (datePickerViewable) {
+      startDate = dates[0].startDate
+      endDate = dates[0].endDate
+    }
     axios
       .get('/api/timecard/search', {
         params: {
           searchTerm,
-          startDate: dates[0].startDate,
-          endDate: dates[0].endDate,
+          startDate,
+          endDate,
         },
       })
       .then((res) => {
         console.log('responce:', res)
         dispatch(setSearchedTimecards(res.data.timecards));
-        setTimecards(searchedTimecards)
+        setTimecards(res.data.timecards)
       });
   };
 
@@ -77,14 +84,14 @@ const TimecardSearchPage = () => {
       </Grid>
       <Grid item>
         <Button variant="contained" color="secondary"
-        onClick={handleRecentDisplay}
+          onClick={handleRecentDisplay}
         >
           Recent
         </Button>
       </Grid>
       <Grid item>
         <Button variant="contained" onClick={() => setDatePickerViewable(!datePickerViewable)}>
-          Filter by Date
+          {datePickerViewable ? 'Filter without Date' : 'Filter by Date'}
         </Button>
       </Grid>
     </Grid>

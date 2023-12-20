@@ -81,6 +81,8 @@ router.get('/search', async (req, res) => {// dates go into timecard not jobsite
     const query = {
       $or: [
         { name: { $regex: searchTerm, $options: 'i' } },
+        { address: { $regex: searchTerm, $options: 'i' } },
+        { city: { $regex: searchTerm, $options: 'i' } },
         { description: { $regex: searchTerm, $options: 'i' } },
       ],
     };

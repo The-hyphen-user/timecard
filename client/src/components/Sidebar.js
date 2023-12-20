@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import GridOnIcon from '@mui/icons-material/GridOn';
 import Button from '@mui/material/Button';
 import EventNoteIcon from '@mui/icons-material/EventNote'; //timecard
 import FoundationIcon from '@mui/icons-material/Foundation'; //jobsite
@@ -126,6 +127,22 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                     </Button>
                   )}
                 </ListItem>
+                <ListItem
+                  component={Link}
+                  to="/timecardexcel"
+                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+                >
+                  {drawerOpen ? (
+                    <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
+                      <GridOnIcon sx={{ p: 1 }} />
+                      <ListItemText primary="export" />
+                    </Button>
+                  ) : (
+                    <Button variant="contained">
+                      <GridOnIcon />
+                    </Button>
+                  )}
+                </ListItem>
                 {role === 'admin' ?
                   <>
                     <ListItem
@@ -145,6 +162,22 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                       )}
                     </ListItem> </> :
                   <>
+                    <ListItem
+                      component={Link}
+                      to="/createactivation"
+                      sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+                    >
+                      {drawerOpen ? (
+                        <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
+                          <PersonAddIcon sx={{ p: 1 }} />
+                          <ListItemText primary="Create User" />
+                        </Button>
+                      ) : (
+                        <Button variant="contained">
+                          <PersonAddIcon />
+                        </Button>
+                      )}
+                    </ListItem>
                     <ListItem
                       component={Link}
                       to="/jobsite/create"

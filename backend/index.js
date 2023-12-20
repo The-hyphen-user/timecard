@@ -73,11 +73,17 @@ app.use('/uploads', (req, res, next) => {
 });
 app.use('/api', routes);
 
+import excel from './routes/excel.route.js';
+
+
+app.use('/excel', excel)
 
 app.use('/', (req, res) => {
     res.status(200).send(`you have reached home ${req.path}, please leave a message after the beep... beep`)
 })
 
+// import Key from './models/key.js';
+// const newKey = Key.create({ '123456789'})
 
 
 app.listen(PORT, () => {

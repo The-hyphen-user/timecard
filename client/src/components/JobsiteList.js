@@ -53,7 +53,7 @@ const JobsiteList = () => {
     }
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log('startDate', dates[0].startDate,
       'endDate', dates[0].endDate,);
     axios
@@ -66,10 +66,9 @@ const JobsiteList = () => {
       })
       .then((res) => {
         dispatch(setSearchedJobsites(res.data.jobsites));
-        setJobsites(searchedJobsites)
-        console.log('search data', res.data.jobsites);
-
-      });
+        setJobsites(res.data.jobsites)
+        console.log('search data', res.data.jobsites)
+      })
   };
   const handleRecentToMeDisplay = () => {
     setJobsites(recentJobsitesToMe)

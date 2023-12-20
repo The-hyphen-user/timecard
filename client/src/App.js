@@ -20,6 +20,8 @@ import TimecardCreatePage from './components/TimecardCreatePage';
 import { useSelector } from 'react-redux';
 import { Grid, useMediaQuery } from '@mui/material';
 import TimecardSearchPage from './components/TimecardSearchPage';
+import DisplayReport from './components/DisplayReport';
+import TimecardExcel from './components/TimecardExcel'
 // import Recovery from '../../backend/models/Recovery';
 // <Route path="recover/:recoverId" element={<Recovery} />
 
@@ -28,8 +30,8 @@ const { ENV, PROD_HOST_IP } = process.env
 
 function App() {
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3050';
-  // axios.defaults.baseURL = 'http://localhost:3050';
+  // axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3000';
+  axios.defaults.baseURL = 'http://localhost:3050/';
   // const { PROD_HOST_IP } = process.env
   // axios.defaults.baseURL = `http://${PROD_HOST_IP}:3050`;
 
@@ -70,6 +72,7 @@ function App() {
             xl={11}>
             <Container maxWidth="lg">
               <Routes>
+
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="signup/:activationLink" element={<Signup />} />
@@ -81,10 +84,13 @@ function App() {
                 <Route path="welcome" element={<Welcome />} />
                 <Route path="createactivation" element={<Createactivation />} />
                 <Route path="Timecard" element={<OLDTimecardList />} />
+                <Route path='report' element={<DisplayReport />} />
                 <Route
                   path="timecardsearchpage"
                   element={<TimecardSearchPage />}
                 />
+
+                <Route path='TimecardExcel' element={<TimecardExcel />} />
 
                 <Route path="Timecard/:timecardId" element={<TimecardPage />} />
                 <Route

@@ -20,7 +20,10 @@ const theme = createTheme({
       main: '#cb1111',
     },
     grey: {
-      main: '#006400', //lime
+      main: '#006400', //dark green
+    },
+    faded: {
+      main: '#d3d3d3', // light grey
     },
   },
 });

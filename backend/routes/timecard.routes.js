@@ -38,25 +38,32 @@ router.get('/search', isAuthenticated, async (req, res) => {
   try {
     const { searchTerm, startDate, endDate } = req.query;
     const userId = req.user._id;
-    console.log(searchTerm)
+    console.log('searchTerm', searchTerm)
     const query = {
       user: userId
     }
     if (searchTerm) {
-      query.$or = [
-        { description: { $regex: searchTerm, $options: 'i' } },
-      ];
+      query.description = { $regex: searchTerm, $options: 'i' };
     }
+
+    if (startDate !== null && endDate !== null) {
+      query.date = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      };
+    }
+
 
 
     // if (startDate && endDate) {
     //   query.startDate = { $gte: new Date(startDate) };
     //   query.endDate = { $lte: new Date(endDate) };
     // }
+    console.log('query', query)
     const timecards = await Timecard
-    .find(query)
-    .limit(20)
-    .populate('jobsite');
+      .find(query)
+      .limit(20)
+      .populate('jobsite');
     console.log('timecards', timecards)
     res.json({ timecards });
   } catch (error) {
