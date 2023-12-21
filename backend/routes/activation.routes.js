@@ -20,8 +20,8 @@ router.post('/createactivation', async (req, res) => {
     let newToken;
     let tokenExists = true;
 
-    const { email } = req.body;
-    if (!email) {
+    const { email, username, role } = req.body;
+    if (!email || !username) {
       res.status(404).json({ message: 'missing email' });
     }
     const dupUser = await User.findOne({ email });

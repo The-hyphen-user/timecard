@@ -46,6 +46,14 @@ const Login = () => {
         setError(err);
       });
   };
+  const loadUser = () => {
+    setUsername('demoUser')
+    setPassword('demoUserPassword1')
+  }
+  const loadAdmin = () => {
+    setUsername('demoAdmin')
+    setPassword('demoAdminPassword1')
+  }
   const activation = () => {
     navigate('/createactivation', { replace: true });
   }
@@ -112,6 +120,14 @@ const Login = () => {
       </Grid>
       <Grid item>
         <Button onClick={activateAccount}>new user</Button>
+
+      </Grid>
+      <Grid item>
+        <Button variant="contained" onClick={loadUser}>demo user</Button>
+
+      </Grid>
+      <Grid item>
+        <Button variant="contained" onClick={loadAdmin}>demo admin</Button>
 
       </Grid>
     </Grid>
