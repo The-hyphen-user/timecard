@@ -18,67 +18,48 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
   const username = useSelector((state) => state.user.user.username);
   const role = useSelector((state) => state.user.user.role)
 
-
-
-  /*
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-  }
-
-  const openDrawer = () => {
-    setDrawerOpen(true);
-  }
-
-  const closeDrawer = () => {
-    setDrawerOpen(false);
-  }
-  */
-
   return (
     <div>
-      {
-        isHidden ?
-          <Button
-            variant="contained"
-            sx={{
-              position: 'fixed', top: 16,
-              left: drawerOpen ? 16 : 0,
-              zIndex: 1000
-            }}
-            onClick={toggleHidden}
-          >
-            <MenuIcon />
-          </Button>
-          :
-
-          <Drawer
-            anchor="left"
-            variant="permanent"
-            sx={{ width: '240px', border: '1px solid #000', height: 'auto' }}
-          >
-            <List>
-              <ListItem sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
-                {drawerOpen && !isHidden ? (
-                  <Button
-                    sx={{ flex: 1, textAlign: 'left' }}
-                    variant="contained"
-                    onClick={toggleHidden}
-                  >
-                    <MenuIcon sx={{ p: 1 }} />
-                    <ListItemText primary="menu" />
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    onClick={toggleHidden}
-                  >
-                    <MenuIcon />
-                  </Button>
-                )}
-              </ListItem>
-              {!isHidden && <>
+      {isHidden ?
+        <Button
+          variant="contained"
+          sx={{
+            position: 'fixed', top: 16,
+            left: drawerOpen ? 16 : 0,
+            zIndex: 1000
+          }}
+          onClick={toggleHidden}
+        >
+          <MenuIcon />
+        </Button>
+        :
+        <Drawer
+          anchor="left"
+          variant="permanent"
+          sx={{ width: '240px', border: '1px solid #000', height: 'auto' }}
+        >
+          <List>
+            <ListItem sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}>
+              {drawerOpen && !isHidden ? (
+                <Button
+                  sx={{ flex: 1, textAlign: 'left' }}
+                  variant="contained"
+                  onClick={toggleHidden}
+                >
+                  <MenuIcon sx={{ p: 1 }} />
+                  <ListItemText primary="menu" />
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={toggleHidden}
+                >
+                  <MenuIcon />
+                </Button>
+              )}
+            </ListItem>
+            {!isHidden && <>
+              {role === 'user' && <>
                 <ListItem
                   component={Link}
                   to="/timecardsearchpage"
@@ -127,6 +108,8 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                     </Button>
                   )}
                 </ListItem>
+              </>}
+              {role === 'admin' && <>
                 <ListItem
                   component={Link}
                   to="/timecardexcel"
@@ -143,95 +126,56 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                     </Button>
                   )}
                 </ListItem>
-                {role === 'admin' ?
-                  <>
-                    <ListItem
-                      component={Link}
-                      to="/jobsite/create"
-                      sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
-                    >
-                      {drawerOpen ? (
-                        <Button variant="contained">
-                          <AddHomeWorkIcon sx={{ p: 1 }} />
-                          <ListItemText primary="Create Jobsite" />
-                        </Button>
-                      ) : (
-                        <Button variant="contained">
-                          <AddHomeWorkIcon />
-                        </Button>
-                      )}
-                    </ListItem> </> :
-                  <>
-                    <ListItem
-                      component={Link}
-                      to="/createactivation"
-                      sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
-                    >
-                      {drawerOpen ? (
-                        <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
-                          <PersonAddIcon sx={{ p: 1 }} />
-                          <ListItemText primary="Create User" />
-                        </Button>
-                      ) : (
-                        <Button variant="contained">
-                          <PersonAddIcon />
-                        </Button>
-                      )}
-                    </ListItem>
-                    <ListItem
-                      component={Link}
-                      to="/jobsite/create"
-                      sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
-                    >
-                      {drawerOpen ? (
-                        <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
-                          <AddHomeWorkIcon sx={{ p: 1 }} />
-                          <ListItemText primary="Create Jobsite" />
-                        </Button>
-                      ) : (
-                        <Button variant="contained">
-                          <AddHomeWorkIcon />
-                        </Button>
-                      )}
-                    </ListItem>
-
-                    <ListItem
-                      component={Link}
-                      to="/createactivation"
-                      sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
-                    >
-                      {drawerOpen ? (
-                        <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
-                          <PersonAddIcon sx={{ p: 1 }} />
-                          <ListItemText primary="Create User" />
-                        </Button>
-                      ) : (
-                        <Button variant="contained">
-                          <PersonAddIcon />
-                        </Button>
-                      )}
-                    </ListItem>
-                  </>
-                }
-                <ListItem>
-                  {'info'}
-                  <br />
-                  {'role: '}
-                  {role ? <>{role}</> : <></>}
-                  <br />
-                  {'username: '}
-                  <br />
-                  {username ? <>{username}</> : <></>}
-                  <br />
-                  {isHidden ? 'hidden' : 'visable'}
+                <ListItem
+                  component={Link}
+                  to="/jobsite/create"
+                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+                >
+                  {drawerOpen ? (
+                    <Button variant="contained">
+                      <AddHomeWorkIcon sx={{ p: 1 }} />
+                      <ListItemText primary="Create Jobsite" />
+                    </Button>
+                  ) : (
+                    <Button variant="contained">
+                      <AddHomeWorkIcon />
+                    </Button>
+                  )}
                 </ListItem>
-              </>
-              }
-
-            </List>
-          </Drawer>
-      }
-    </div >
+                <ListItem
+                  component={Link}
+                  to="/createactivation"
+                  sx={{ display: 'flex', flexGrow: 1, alignItems: 'left' }}
+                >
+                  {drawerOpen ? (
+                    <Button variant="contained" sx={{ flex: 1, textAlign: 'left' }}>
+                      <PersonAddIcon sx={{ p: 1 }} />
+                      <ListItemText primary="Create User" />
+                    </Button>
+                  ) : (
+                    <Button variant="contained">
+                      <PersonAddIcon />
+                    </Button>
+                  )}
+                </ListItem>
+              </>}
+            </>}
+            <ListItem>
+              {'info'}
+              <br />
+              <br />
+              {'role: '}
+              <br />
+              {role ? <>{role}</> : <></>}
+              <br />
+              <br />
+              {'username: '}
+              <br />
+              {username ? <>{username}</> : <></>}
+            </ListItem>
+          </List>
+        </Drawer>}
+    </div>
   );
 };
 

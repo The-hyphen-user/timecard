@@ -31,11 +31,13 @@ const { ENV, PROD_HOST_IP } = process.env
 function App() {
   axios.defaults.withCredentials = true;
   // axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3000';
-  axios.defaults.baseURL = 'http://localhost:3050/';
+  axios.defaults.baseURL = 'http://localhost/';
   // const { PROD_HOST_IP } = process.env
   // axios.defaults.baseURL = `http://${PROD_HOST_IP}:3050`;
 
   const user = useSelector((state) => state.user.user.username);
+  const role = useSelector((state) => state.user.user.role)
+
   const isMdOrAbove = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   useEffect(() => {
@@ -45,17 +47,16 @@ function App() {
   const [isHidden, setIsHidden] = useState(false)
 
   const toggleHidden = () => {
+    console.log(user)
     setIsHidden(!isHidden)
   }
 
   const [drawerOpen, setDrawerOpen] = useState(true);
+
   return (
     <div className="App">
-      {user ? (
+      {user ? <>
         <Grid container spacing={1}>
-          {/* <Grid item xs={1} sm={1} md={1} lg={1} xl={1}>
-                <SideBar drawerOpen={drawerOpen} isHidden={isHidden} toggleHidden={toggleHidden} />
-              </Grid> */}
           <Grid item
             xs={isHidden ? 1 : 3}
             sm={isHidden ? 1 : 3}
@@ -71,58 +72,53 @@ function App() {
             lg={isHidden ? 11 : 9.5}
             xl={11}>
             <Container maxWidth="lg">
-              <Routes>
-
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="signup/:activationLink" element={<Signup />} />
+              {role === 'user' && <Routes>
+                <Route path="welcome" element={<Welcome />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="jobsite" element={<JobsiteList />} />
                 <Route path="jobsites" element={<JobsiteList />} />
-                <Route path="jobsite/create" element={<JobsiteCreatePage />} />
-                <Route path="jobsite/:jobsiteId" element={<JobsitePage />} />
-                <Route path="welcome" element={<Welcome />} />
-                <Route path="createactivation" element={<Createactivation />} />
                 <Route path="Timecard" element={<OLDTimecardList />} />
-                <Route path='report' element={<DisplayReport />} />
                 <Route
                   path="timecardsearchpage"
                   element={<TimecardSearchPage />}
-                />
-
-                <Route path='TimecardExcel' element={<TimecardExcel />} />
-
-                <Route path="Timecard/:timecardId" element={<TimecardPage />} />
-                <Route
-                  path="Timecard/create:timecardId"
-                  element={<TimecardCreatePage />}
                 />
                 <Route
                   path="Timecard/create"
                   element={<TimecardCreatePage />}
                 />
-                <Route path="/" element={<Login />} />
-              </Routes>
+
+                <Route path="/" element={<Dashboard />} />
+              </Routes>}
+              {role === 'admin' && <Routes>
+                <Route path="welcome" element={<Welcome />} />
+                <Route path="jobsite/create" element={<JobsiteCreatePage />} />
+                <Route path="jobsite" element={<JobsiteList />} />
+                <Route path="jobsites" element={<JobsiteList />} />
+                <Route path="createactivation" element={<Createactivation />} />
+                <Route path='TimecardExcel' element={<TimecardExcel />} />
+                <Route path='report' element={<DisplayReport />} />
+
+
+                <Route path="/" element={<Dashboard />} />
+              </Routes>}
             </Container>
           </Grid>
-
-
-
           <Grid item xs={0} sm={0} md={0} lg={0} xl={0}></Grid>
         </Grid>
-      ) : (
+      </> : <> {/* public routes */}
         <Container>
           <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="signup/:activationLink" element={<Signup />} />
             <Route path='newuser/:email/:activationKey' element={<NewUser />} />
-            <Route path="/" element={<Login />} />
-            <Route path="*" element={<Navigate to="/" />} />
             <Route path="signup" element={<Signup />} />
             <Route path="signup/:activationId" element={<Signup />} />
-            <Route path="createactivation" element={<Createactivation />} />
-
+            <Route path="/" element={<Login />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Container>
-      )}
+      </>}
     </div>
   );
 }

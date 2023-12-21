@@ -32,6 +32,8 @@ const JobsiteList = () => {
       key: 'selection'
     }
   ]);
+
+  const role = useSelector((state) => state.user.user.role)
   const searchedJobsites = useSelector((state) => state.jobsites.searchedJobsites)
   const recentJobsitesToMe = useSelector((state) => state.jobsites.recentJobsitesToMe)
   const recentJobsitesToAll = useSelector((state) => state.jobsites.recentJobsitesToAll)
@@ -133,8 +135,8 @@ const JobsiteList = () => {
               <JobsiteCard
                 key={jobsite._id}
                 jobsite={jobsite}
-                isLinkable={true}
-                isSelectable={true}
+                isLinkable={role === 'user'}
+                isSelectable={role === 'user'}
               />
             </Paper>
           </Grid>
