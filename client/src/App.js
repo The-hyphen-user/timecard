@@ -31,7 +31,7 @@ const { ENV, PROD_HOST_IP } = process.env
 function App() {
   axios.defaults.withCredentials = true;
   // axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3000';
-  axios.defaults.baseURL = 'http://localhost/';
+  axios.defaults.baseURL = 'http://localhost:3050/';
   // const { PROD_HOST_IP } = process.env
   // axios.defaults.baseURL = `http://${PROD_HOST_IP}:3050`;
 
