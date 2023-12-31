@@ -60,7 +60,7 @@ const TimecardExcel = () => {
         });
 
         // Handle the response as needed
-        console.log(response.data); // You can replace this with your logic
+        console.log('the data', response.data);
         setTimecards(response.data)
 
       } catch (error) {
