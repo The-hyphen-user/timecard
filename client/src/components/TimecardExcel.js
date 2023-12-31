@@ -14,7 +14,7 @@ import { Table, Grid, TableBody, TableCell, TableContainer, TableHead, TableRow,
 const ENV = process.env.REACT_APP_ENV
 const PROD_HOST_IP = process.env.REACT_APP_PROD_HOST_IP
 
-const IP = ENV === 'prod' ? PROD_HOST_IP : 'localhost:5000';
+const IP = ENV === 'prod' ? PROD_HOST_IP : 'localhost';
 
 const TimecardExcel = () => {
   const twoWeeksAgo = subWeeks(startOfDay(new Date()), 2);
@@ -49,7 +49,7 @@ const TimecardExcel = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://${IP}/excel`, {
+        const response = await axios.get(`http://${IP}:5000/excel`, {
           headers: {
             TimeCardAccessKey: 123456789,
           },
