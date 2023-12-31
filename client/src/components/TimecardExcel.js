@@ -49,7 +49,7 @@ const TimecardExcel = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://${IP}:5000/excel`, {
+        const response = await axios.get(`/api/excel/`, {
           headers: {
             TimeCardAccessKey: 123456789,
           },
