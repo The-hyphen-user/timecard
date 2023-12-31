@@ -13,9 +13,11 @@ router.post('/register', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { username, password, activationkey, admin } = req.body;
-
-    const role = admin ? 'admin' : 'user';
+    const { username, password, activationkey } = req.body;
+    let { role } = req.body;
+    if (role !== 'admin' || role !== 'demoAdmin') {
+      role = 'user'
+    }
     const userActivation = await UserActivation.findOne({
       activationkey,
     }).session(session);

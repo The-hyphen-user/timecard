@@ -5,6 +5,14 @@ const userActivationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    default: 'user',
+  },
   activationKey: {
     type: String,
     required: true,

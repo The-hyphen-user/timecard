@@ -10,7 +10,7 @@ import sendEmail from '../util/elasticEmail.js';
 
 const router = express.Router();
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const { ENV, PROD_HOST_IP } = process.env
 
@@ -21,8 +21,8 @@ router.post('/createactivation', async (req, res) => {
     let tokenExists = true;
 
     const { email, username, role } = req.body;
-    if (!email || !username) {
-      res.status(404).json({ message: 'missing email' });
+    if (!email || !username || !role) {
+      res.status(404).json({ message: 'missing information' });
     }
     const dupUser = await User.findOne({ email });
     if (dupUser) {
@@ -41,11 +41,11 @@ router.post('/createactivation', async (req, res) => {
       }
     }
     const userActivation = new UserActivation({
-      email,
+      email, username, role,
       activationKey: newToken,
     });
     await userActivation.save();
-    const prodActivationLink = `http://${PROD_HOST_IP}:3000/signup/${newToken}`
+    const prodActivationLink = `http://${PROD_HOST_IP}/signup/${newToken}`
     const activationLink = `http://localhost:3000/signup/${newToken}`//  change me
     if (ENV === 'prod') {
       await sendEmail({ recipientEmail: email, content: `please go to: ${prodActivationLink} to activate your account` })

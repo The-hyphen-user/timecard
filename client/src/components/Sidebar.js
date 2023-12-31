@@ -59,7 +59,7 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
               )}
             </ListItem>
             {!isHidden && <>
-              {role === 'user' && <>
+              {role === 'user' || role === 'demmoAdmin' ? <>
                 <ListItem
                   component={Link}
                   to="/timecardsearchpage"
@@ -108,8 +108,8 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                     </Button>
                   )}
                 </ListItem>
-              </>}
-              {role === 'admin' && <>
+              </> : <></>}
+              {role === 'admin' || role === 'demmoAdmin' ? <>
                 <ListItem
                   component={Link}
                   to="/timecardexcel"
@@ -158,7 +158,7 @@ const Sidebar = ({ drawerOpen, isHidden, toggleHidden }) => {
                     </Button>
                   )}
                 </ListItem>
-              </>}
+              </> : <></>}
             </>}
             <ListItem>
               {'info'}
