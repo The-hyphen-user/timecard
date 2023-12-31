@@ -3,10 +3,10 @@ import dotenv from 'dotenv'
 import Email from '../models/email.js'
 
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const sendEmail = async ({ recipientEmail, content }) => {
-    const { EMAIL_ENDPOINT, ELASTIC_EMAIL_API_KEY } = process.env
+    const { ELASTIC_EMAIL_API_KEY } = process.env // EMAIL_ENDPOINT,
     const emailApiEndpoint = 'https://api.elasticemail.com/v4/emails';
 
     // const headerParamName = 'X-ElasticEmail-ApiKey'

@@ -11,6 +11,11 @@ import { Table, Grid, TableBody, TableCell, TableContainer, TableHead, TableRow,
 // import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 // import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
+const ENV = process.env.REACT_APP_ENV
+const PROD_HOST_IP = process.env.REACT_APP_PROD_HOST_IP
+
+const IP = ENV === 'prod' ? PROD_HOST_IP : 'localhost:5000';
+
 const TimecardExcel = () => {
   const twoWeeksAgo = subWeeks(startOfDay(new Date()), 2);
   const endOfToday = endOfDay(new Date());
@@ -44,7 +49,7 @@ const TimecardExcel = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/excel', {
+        const response = await axios.get(`http://${IP}/excel`, {
           headers: {
             TimeCardAccessKey: 123456789,
           },

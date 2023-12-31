@@ -25,13 +25,13 @@ import TimecardExcel from './components/TimecardExcel'
 // import Recovery from '../../backend/models/Recovery';
 // <Route path="recover/:recoverId" element={<Recovery} />
 
-
-const { ENV, PROD_HOST_IP } = process.env
+const ENV = process.env.REACT_APP_ENV
+const PROD_HOST_IP = process.env.REACT_APP_PROD_HOST_IP
 
 function App() {
   axios.defaults.withCredentials = true;
-  // axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}:3050` : 'http://localhost:3000';
-  axios.defaults.baseURL = 'http://localhost/';
+  axios.defaults.baseURL = ENV === 'prod' ? `http://${PROD_HOST_IP}/` : 'http://localhost/';
+  // axios.defaults.baseURL = 'http://localhost/';
   // const { PROD_HOST_IP } = process.env
   // axios.defaults.baseURL = `http://${PROD_HOST_IP}:3050`;
 
@@ -89,7 +89,7 @@ function App() {
 
                 <Route path="/" element={<Dashboard />} />
               </Routes>}
-              {role === 'admin' && <Routes>
+              {role === 'admin' || role === 'demoAdmin' ? <Routes>
                 <Route path="welcome" element={<Welcome />} />
                 <Route path="jobsite/create" element={<JobsiteCreatePage />} />
                 <Route path="jobsite" element={<JobsiteList />} />
@@ -100,7 +100,7 @@ function App() {
 
 
                 <Route path="/" element={<Dashboard />} />
-              </Routes>}
+              </Routes> : <></>}
             </Container>
           </Grid>
           <Grid item xs={0} sm={0} md={0} lg={0} xl={0}></Grid>
