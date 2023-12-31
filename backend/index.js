@@ -23,7 +23,7 @@ const LocalStrategy = passportLocal.Strategy;
 const PORT = process.env.API_LOCAL_PORT || 5000;
 const { PROD_HOST_IP } = process.env
 const app = express();
-const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', 'http://localhost:5000', `http://${PROD_HOST_IP}:3000`], credentials: true }
+const corsOptions = { origin: ['http://localhost:3000', 'http://localhost:3050', 'http://localhost:5000', `http://${PROD_HOST_IP}:3050`, `http://${PROD_HOST_IP}`], credentials: true }
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
@@ -73,10 +73,6 @@ app.use('/uploads', (req, res, next) => {
 });
 app.use('/api', routes);
 
-import excel from './routes/excel.route.js';
-
-
-app.use('/excel', excel)
 
 app.use('/', (req, res) => {
     res.status(200).send(`you have reached home ${req.path}, please leave a message after the beep... beep`)
