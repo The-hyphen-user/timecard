@@ -8,6 +8,8 @@ const Createactivation = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [role, setRole] = useState('user');
+  const [responceMessage, setResponceMessage] = useState('')
+  const [isClicked, setIsClicked] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +21,12 @@ const Createactivation = () => {
       })
       .then((res) => {
         console.log('id', res.data.activationKey);
-        navigate(`/signup/${res.data.activationKey}`);
-      });
+        setResponceMessage('Sent User Add code')
+        setIsClicked(true)
+      }).catch((err) => {
+        setResponceMessage(err)
+        setIsClicked(true)
+      })
   };
   const setToUser = () => {
     setRole('user')
@@ -74,9 +80,12 @@ const Createactivation = () => {
           </ToggleButtonGroup>
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button variant="contained" color="primary" onClick={handleSubmit} disabled={isClicked}>
             Submit
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h4" align="center">{responceMessage}</Typography>
         </Grid>
       </Grid>
     </Container>

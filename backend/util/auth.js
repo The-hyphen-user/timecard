@@ -13,23 +13,31 @@ router.post('/register', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { username, password, activationkey } = req.body;
-    let { role } = req.body;
-    if (role !== 'admin' || role !== 'demoAdmin') {
-      role = 'user'
-    }
+    const { password, activationKey } = req.body;
     const userActivation = await UserActivation.findOne({
-      activationkey,
+      activationKey,
     }).session(session);
+    console.log('useravtivation:', userActivation, 'activationkey', activationKey)
     if (userActivation) {
-      const { email } = userActivation;
+      const { username, email, role, isUsed } = userActivation;
+      // about early is isUsed is true
+
+
+      if (isUsed) {
+        await session.abortTransaction();
+        session.endSession();
+        res.status(400).json({ message: 'Activation key already used' });
+      }
+
       const user = new User({ username, email, role });
       await user.setPassword(password);
       await user.save({ session });
 
-      await UserActivation.deleteOne({ activationKey: activationkey }).session(
-        session,
-      );
+      await UserActivation.updateOne(
+        { activationKey },
+        { $set: { isUsed: true } }).session(
+          session,
+        );
 
       await session.commitTransaction();
       session.endSession();

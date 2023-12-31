@@ -27,6 +27,11 @@ const userActivationSchema = new mongoose.Schema({
     default: Date.now,
     required: true,
   },
+  isUsed: {
+    type: Boolean,
+    default: false,
+  },
+
 });
 
 const UserActivation = mongoose.model('UserActivation', userActivationSchema);

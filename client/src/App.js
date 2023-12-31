@@ -111,9 +111,6 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="signup/:activationLink" element={<Signup />} />
-            <Route path='newuser/:email/:activationKey' element={<NewUser />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="signup/:activationId" element={<Signup />} />
             <Route path="/" element={<Login />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

@@ -47,10 +47,12 @@ router.post('/createactivation', async (req, res) => {
     await userActivation.save();
     const prodActivationLink = `http://${PROD_HOST_IP}/signup/${newToken}`
     const activationLink = `http://localhost:3000/signup/${newToken}`//  change me
+    const professionalLink = `http://danielwamsher.com/signup/${newToken}`
+    const message = `Hello ${username}, you have been invited to use Fast Track Timecards \n please go to ${professionalLink} to finish your sign up`
     if (ENV === 'prod') {
-      await sendEmail({ recipientEmail: email, content: `please go to: ${prodActivationLink} to activate your account` })
+      await sendEmail({ recipientEmail: email, content: message })
     } else {
-      await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
+      await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account, username: ${username}` })
     }
     // await sendEmail({ recipientEmail: email, content: `please go to: ${activationLink} to activate your account` })
     console.log('userActivation:', userActivation);

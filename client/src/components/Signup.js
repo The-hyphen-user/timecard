@@ -1,42 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Typography } from '@material-ui/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../features/slices/userSlice';
 
 const Signup = () => {
-  const { activationId } = useParams();
+  const { activationLink } = useParams();
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [responceMessage, setResponceMessage] = useState('');
+  const [isClicked, setIsClicked] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('🧱USERNAME: ', username);
     console.log('password: ', password);
-    console.log('activationKey: ', activationId);
+    console.log('activationKey: ', activationLink);
     axios
       .post('/api/auth/register', {
-        username: username,
         password: password,
-        activationKey: activationId,
+        activationKey: activationLink,
       })
       .then((res) => {
-        console.log(res);
-
+        setIsClicked(true)
         dispatch(setUser(res.data.user));
-
         navigate('/welcome', { replace: true });
-
-        console.log('second res', res);
       })
       .catch((err) => {
-        console.log(err);
+        setResponceMessage(err)
+        setIsClicked(true)
       });
   };
 
@@ -44,12 +39,6 @@ const Signup = () => {
     <div>
       <p>Signup</p>
       <div className="login-container">
-        <TextField
-          label="username"
-          variant="outlined"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
         <br />
         <br />
         <TextField
@@ -63,9 +52,11 @@ const Signup = () => {
         />
         <br />
         <br />
-        <Button onClick={handleSubmit} variant="contained">
-          Log In here
+        <Button onClick={handleSubmit} variant="contained" disabled={isClicked}>
+          Sign up here
         </Button>
+        <Typography variant="h4" align="center">{responceMessage}</Typography>
+
       </div>
     </div>
   );

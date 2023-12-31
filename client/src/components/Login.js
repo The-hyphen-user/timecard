@@ -115,14 +115,6 @@ const Login = () => {
         )}
       </Grid>
       <Grid item>
-        <Button onClick={activation}>make user</Button>
-
-      </Grid>
-      <Grid item>
-        <Button onClick={activateAccount}>new user</Button>
-
-      </Grid>
-      <Grid item>
         <Button variant="contained" onClick={loadUser}>demo user</Button>
 
       </Grid>

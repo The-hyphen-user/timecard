@@ -5,7 +5,7 @@ import { Typography, Container, Grid, Paper } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const NewUser = () => {
-    const { email, activationKey } = useParams()
+    const { activationKey } = useParams()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     // const [email, setEmail] = useState('dsa@dsa.dsa')
@@ -18,8 +18,6 @@ const NewUser = () => {
         axios
             .post('/api/activation/activateuser', {
                 activationKey,
-                email,
-                username,
                 password
             })
     }
