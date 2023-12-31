@@ -27,6 +27,7 @@ router.get('/', isAuthenticated, async (req, res) => {
     res.json(timecards);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -60,6 +61,7 @@ router.post('/create', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -69,6 +71,7 @@ router.get('/all', isAuthenticated, async (req, res) => {
     res.json(jobsites);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -100,6 +103,7 @@ router.get('/search', async (req, res) => {// dates go into timecard not jobsite
     res.json({ jobsites });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -121,6 +125,7 @@ router.get('/recenttome', async (req, res) => {
     res.json({ jobsites: recentUniqueJobsites });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -141,8 +146,39 @@ router.get('/recenttoall', async (req, res) => {
     res.json({ jobsites: recentJobsites });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.delete('/delete/:id', isAuthenticated, async (req, res) => {
+  const jobsiteId = req.params.id
+  if (!mongoose.Types.ObjectId.isValid(jobsiteId)) {
+    return res.status(400).json({ error: 'Invalid jobsite ID' });
+  }
+  try {
+    const jobsite = await Jobsite.findById(jobsiteId);
+
+    if (!jobsite) {
+      return res.status(404).json({ message: 'Jobsite not found' });
+    }
+
+    const imageURL = jobsite.imageURL;
+
+    const deletedJobsite = await Jobsite.findByIdAndRemove(jobsiteId);
+    if (deletedJobsite) {
+      if (imageURL) {
+        const imagePath = path.join(__dirname, `../uploads/${imageURL}`);
+        await fs.unlink(imagePath);
+      }
+      res.status(204).json({ message: "jobsite succcessfully deleted" })
+    } else {
+      res.status(404).json({ message: "jobsite not found" })
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 
 
 export default router;
