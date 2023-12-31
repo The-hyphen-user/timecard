@@ -12,7 +12,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedJobsite } from '../features/slices/jobsitesSlice';
 
 
-const { ENV, PROD_HOST_IP } = process.env
+// const { ENV, PROD_HOST_IP } = process.env
+const ENV = process.env.REACT_APP_ENV
+const PROD_HOST_IP = process.env.REACT_APP_PROD_HOST_IP
 
 const IP = ENV === 'prod' ? PROD_HOST_IP : 'localhost'
 
@@ -66,7 +68,7 @@ const JobsiteCard = ({ jobsite, isSelectable, isLinkable }) => {
     navigate('/dashboard');
   }
 
-  const { LOCAL_IP_ADDRESS } = process.env
+  // const { LOCAL_IP_ADDRESS } = process.env
 
   return (
     <Card
